@@ -1,5 +1,11 @@
 {
   "installCommand": "npm install",
   "buildCommand": "npm run build --workspace apps/web",
-  "outputDirectory": "apps/web/.next"
+  "outputDirectory": "apps/web/.next",
+  "crons": [
+    {
+      "path": "/api/cleanup",
+      "schedule": "0 3 * * *"
+    }
+  ]
 }

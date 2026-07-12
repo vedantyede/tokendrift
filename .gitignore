@@ -6,3 +6,5 @@ coverage/
 apps/web/.data/
 *.tsbuildinfo
 .vercel
+
+.env*

@@ -149,7 +149,8 @@ async function main(): Promise<number> {
       const result = await uploadReport(payload, shareBaseUrl);
       process.stdout.write(
         `\nShared: ${result.url}\n` +
-          `Deletion token (save this — shown only once): ${result.deletionToken}\n`,
+          `To delete it later, visit (save this — shown only once):\n` +
+          `${result.url}/delete?token=${result.deletionToken}\n`,
       );
     } catch (err) {
       // A hosting outage must never break a local scan (N3) — this is a
