@@ -37,7 +37,7 @@ The core loop works end to end, live in production:
 
 ---
 
-## Phase 2 — Badge + capture — In progress
+## Phase 2 — Badge + capture — Done
 
 Makes the free tool self-promoting before any paid feature exists.
 
@@ -56,8 +56,14 @@ Makes the free tool self-promoting before any paid feature exists.
       Captures land in a simple append-only list (`email-captures` in Redis)
       for the future paid-launch outreach (PRD F11) — no automated emails
       sent yet, just the capture.
-- [ ] "Published by TokenDrift" mode for public teardowns of open-source
-      repos (content marketing using the product itself)
+- [x] "Published by TokenDrift" mode for public teardowns of open-source
+      repos. `--teardown-title`/`--teardown-note` render a distinct
+      branded banner (headline + short editorial note) and override the
+      page `<title>`. Pure rendering choice, not hosting-dependent — works
+      in both the local file and `--share`'d pages. Note: use `--share` for
+      anything actually published — the local file's hero card shows the
+      full local path, while `--share` correctly reduces it to just the
+      repo's folder name.
 
 **Exit target:** 20 badges live in the wild, email list started.
 

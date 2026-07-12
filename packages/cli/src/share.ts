@@ -18,10 +18,16 @@ function scrubAggregate(aggregate: ScanAggregate): ScanAggregate {
  * violation locations/scrubbed snippets), never full source. `rootDir` is
  * reduced to its basename — the full local path never leaves the machine.
  */
+export interface TeardownOptions {
+  teardownTitle?: string;
+  teardownNote?: string;
+}
+
 export function buildSharePayload(
   aggregate: ScanAggregate,
   rootDir: string,
   toolVersion: string,
+  teardown?: TeardownOptions,
 ): ShareUploadPayload {
   return {
     aggregate: scrubAggregate(aggregate),
@@ -30,6 +36,8 @@ export function buildSharePayload(
       generatedAt: new Date().toISOString(),
       label: path.basename(rootDir) || 'repository',
       repoSlug: deriveRepoSlug(rootDir) ?? undefined,
+      teardownTitle: teardown?.teardownTitle,
+      teardownNote: teardown?.teardownNote,
     },
   };
 }

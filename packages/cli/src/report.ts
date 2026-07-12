@@ -11,6 +11,15 @@ export interface ReportMeta {
    * locally, since there's no backend there to submit to.
    */
   reportId?: string;
+  /**
+   * "Published by TokenDrift" editorial teardown mode — distinct banner
+   * framing for public teardowns of open-source repos (content marketing).
+   * Unlike reportId, this is a pure rendering choice with no backend
+   * dependency, so it works identically in local file output and hosted
+   * pages.
+   */
+  teardownTitle?: string;
+  teardownNote?: string;
 }
 
 function escapeHtml(s: string): string {
@@ -67,7 +76,7 @@ export function renderReport(aggregate: ScanAggregate, meta: ReportMeta): string
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>TokenDrift Report — Score ${score}/100</title>
+<title>${meta.teardownTitle ? escapeHtml(meta.teardownTitle) : `TokenDrift Report — Score ${score}/100`}</title>
 <style>
   :root { color-scheme: light dark; }
   * { box-sizing: border-box; }
@@ -109,6 +118,24 @@ export function renderReport(aggregate: ScanAggregate, meta: ReportMeta): string
 </head>
 <body>
 <div class="wrap">
+
+  ${
+    meta.teardownTitle
+      ? `<style>
+    .teardown-banner { border-top: 4px solid #2563eb; }
+    .teardown-eyebrow {
+      font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em;
+      color: #2563eb; font-weight: 700; margin-bottom: 0.4rem;
+    }
+    .teardown-title { font-size: 1.4rem; font-weight: 700; margin: 0 0 0.5rem; }
+  </style>
+  <div class="card teardown-banner">
+    <div class="teardown-eyebrow">📰 Published by TokenDrift — editorial teardown</div>
+    <div class="teardown-title">${escapeHtml(meta.teardownTitle)}</div>
+    ${meta.teardownNote ? `<p class="muted">${escapeHtml(meta.teardownNote)}</p>` : ''}
+  </div>`
+      : ''
+  }
 
   <div class="card hero">
     <div>

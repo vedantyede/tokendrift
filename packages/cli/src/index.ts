@@ -24,6 +24,11 @@ Options:
   --max-score-drop <n>      Exit 1 if the score drops by more than n vs. --baseline
   --share                   Upload the report artifact and print a hosted URL.
                              Opt-in; nothing is uploaded unless you pass this.
+  --teardown-title <text>   Render as a "Published by TokenDrift" editorial
+                             teardown (for public write-ups of open-source
+                             repos), with this as the headline.
+  --teardown-note <text>    Optional short editorial note shown under the
+                             teardown title.
   --quiet                   Suppress the stdout summary
   -h, --help                Show this help
   -v, --version             Print the tool version
@@ -102,6 +107,8 @@ async function main(): Promise<number> {
         'max-score-drop': { type: 'string' },
         share: { type: 'boolean' },
         'share-url': { type: 'string' },
+        'teardown-title': { type: 'string' },
+        'teardown-note': { type: 'string' },
         quiet: { type: 'boolean' },
         help: { type: 'boolean', short: 'h' },
         version: { type: 'boolean', short: 'v' },
@@ -132,10 +139,15 @@ async function main(): Promise<number> {
     return 2;
   }
 
+  const teardownTitle = values['teardown-title'] as string | undefined;
+  const teardownNote = values['teardown-note'] as string | undefined;
+
   const html = renderReport(aggregate, {
     rootDir,
     generatedAt: new Date().toISOString(),
     toolVersion: TOOL_VERSION,
+    teardownTitle,
+    teardownNote,
   });
 
   try {
@@ -160,7 +172,7 @@ async function main(): Promise<number> {
   if (values.share) {
     const shareBaseUrl = (values['share-url'] as string) ?? DEFAULT_SHARE_URL;
     try {
-      const payload = buildSharePayload(aggregate, rootDir, TOOL_VERSION);
+      const payload = buildSharePayload(aggregate, rootDir, TOOL_VERSION, { teardownTitle, teardownNote });
       const result = await uploadReport(payload, shareBaseUrl);
       process.stdout.write(
         `\nShared: ${result.url}\n` +

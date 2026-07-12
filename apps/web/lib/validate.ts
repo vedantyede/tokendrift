@@ -27,6 +27,10 @@ export function validateSharePayload(body: unknown): ShareUploadPayload | null {
   if (typeof m.label !== 'string') return null;
   if (m.repoSlug !== undefined && typeof m.repoSlug !== 'string') return null;
   if (typeof m.repoSlug === 'string' && !/^[a-zA-Z0-9_-]{1,64}$/.test(m.repoSlug)) return null;
+  if (m.teardownTitle !== undefined && typeof m.teardownTitle !== 'string') return null;
+  if (typeof m.teardownTitle === 'string' && m.teardownTitle.length > 200) return null;
+  if (m.teardownNote !== undefined && typeof m.teardownNote !== 'string') return null;
+  if (typeof m.teardownNote === 'string' && m.teardownNote.length > 2000) return null;
 
   return body as ShareUploadPayload;
 }

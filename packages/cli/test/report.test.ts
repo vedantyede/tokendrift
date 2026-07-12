@@ -62,3 +62,34 @@ test('renderReport includes the email capture form pointed at the report id (hos
   assert.ok(html.includes('subscribe-form'));
   assert.ok(html.includes('/api/reports/abc123/subscribe'));
 });
+
+test('renderReport omits teardown framing by default', () => {
+  const aggregate = aggregateResults([], 0);
+  const html = renderReport(aggregate, {
+    rootDir: 'my-project',
+    generatedAt: '2026-07-12T00:00:00.000Z',
+    toolVersion: '0.1.0',
+  });
+
+  assert.ok(!html.includes('teardown-banner'));
+  assert.ok(!html.includes('Published by TokenDrift'));
+});
+
+test('renderReport shows teardown banner, title, and note when set, and escapes them', () => {
+  const aggregate = aggregateResults([], 0);
+  const html = renderReport(aggregate, {
+    rootDir: 'react-router',
+    generatedAt: '2026-07-12T00:00:00.000Z',
+    toolVersion: '0.1.0',
+    teardownTitle: 'We scanned <script>alert(1)</script> react-router',
+    teardownNote: 'A look at token adoption in a popular open-source repo.',
+  });
+
+  assert.ok(html.includes('teardown-banner'));
+  assert.ok(html.includes('Published by TokenDrift'));
+  assert.ok(html.includes('A look at token adoption in a popular open-source repo.'));
+  assert.ok(!html.includes('<script>alert(1)</script>'));
+  assert.ok(html.includes('&lt;script&gt;'));
+  // The <title> tag should reflect the teardown title, not the generic one.
+  assert.ok(!html.includes('<title>TokenDrift Report'));
+});

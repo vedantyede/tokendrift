@@ -22,6 +22,8 @@ export async function GET(_req: NextRequest, { params }: { params: Promise<{ id:
     generatedAt: report.meta.generatedAt,
     toolVersion: report.meta.toolVersion,
     reportId: id,
+    teardownTitle: report.meta.teardownTitle,
+    teardownNote: report.meta.teardownNote,
   });
 
   return new Response(html, {
