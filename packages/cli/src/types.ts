@@ -66,6 +66,13 @@ export interface ShareMeta {
   generatedAt: string;
   /** Basename of the scanned directory only — never a full local path. */
   label: string;
+  /**
+   * Stable per-repo identity derived from the git origin remote (see
+   * repoIdentity.ts) — lets a README badge track the latest score across
+   * separate --share runs of the same repo. Absent if no git remote is
+   * found; badge registration is then simply skipped.
+   */
+  repoSlug?: string;
 }
 
 export interface ShareUploadPayload {
@@ -77,4 +84,6 @@ export interface ShareResult {
   id: string;
   url: string;
   deletionToken: string;
+  /** Present only when the payload carried a repoSlug the server accepted. */
+  badgeUrl?: string;
 }

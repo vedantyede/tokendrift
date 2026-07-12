@@ -1,5 +1,6 @@
 import path from 'node:path';
 import { scrubSecrets } from './scrub.js';
+import { deriveRepoSlug } from './repoIdentity.js';
 import type { ScanAggregate, ShareResult, ShareUploadPayload, Violation } from './types.js';
 
 export const DEFAULT_SHARE_URL = 'https://usetokendrift.com';
@@ -28,6 +29,7 @@ export function buildSharePayload(
       toolVersion,
       generatedAt: new Date().toISOString(),
       label: path.basename(rootDir) || 'repository',
+      repoSlug: deriveRepoSlug(rootDir) ?? undefined,
     },
   };
 }

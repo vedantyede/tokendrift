@@ -37,12 +37,17 @@ The core loop works end to end, live in production:
 
 ---
 
-## Phase 2 — Badge + capture — Not started
+## Phase 2 — Badge + capture — In progress
 
 Makes the free tool self-promoting before any paid feature exists.
 
-- [ ] SVG badge endpoint (`usetokendrift.com/badge/{repoId}.svg`) showing the
-      latest Drift Score, for embedding in a project README
+- [x] SVG badge endpoint (`/badge/{repoSlug}.svg`) showing the latest Drift
+      Score, for embedding in a project README. Tracks a *repo*, not a single
+      scan: the CLI derives a stable slug from the git origin remote (no
+      account needed — see `packages/cli/src/repoIdentity.ts`), and each
+      `--share` upserts that repo's badge pointer. `--share` now prints
+      ready-to-paste badge markdown when a git remote is found. Unregistered
+      slugs render a neutral "no data" badge (200, not a broken-image icon).
 - [ ] Optional email capture on hosted report pages ("email me when this
       score changes") — feeds the future paid-launch list
 - [ ] "Published by TokenDrift" mode for public teardowns of open-source

@@ -167,6 +167,16 @@ async function main(): Promise<number> {
           `To delete it later, visit (save this — shown only once):\n` +
           `${result.url}/delete?token=${result.deletionToken}\n`,
       );
+      if (result.badgeUrl) {
+        process.stdout.write(
+          `\nBadge (tracks this repo's latest score — add to your README):\n` +
+            `[![Drift Score](${result.badgeUrl})](${result.url})\n`,
+        );
+      } else {
+        process.stdout.write(
+          `\nNo badge registered — no git remote "origin" was found for this directory.\n`,
+        );
+      }
     } catch (err) {
       // A hosting outage must never break a local scan (N3) — this is a
       // warning, not a failure; scan/threshold exit codes are unaffected.

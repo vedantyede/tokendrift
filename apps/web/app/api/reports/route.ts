@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getStore, REPORT_TTL_SECONDS } from '@/lib/store';
+import { getBadgeStore } from '@/lib/badgeStore';
 import { generateId, generateDeletionToken, hashToken } from '@/lib/id';
 import { validateSharePayload, MAX_PAYLOAD_BYTES } from '@/lib/validate';
 
@@ -38,8 +39,19 @@ export async function POST(req: NextRequest) {
     REPORT_TTL_SECONDS,
   );
 
+  let badgeUrl: string | undefined;
+  if (payload.meta.repoSlug) {
+    const badgeStore = await getBadgeStore();
+    await badgeStore.put(payload.meta.repoSlug, {
+      reportId: id,
+      score: payload.aggregate.driftScore.score,
+      updatedAt: now,
+    });
+    badgeUrl = `${req.nextUrl.origin}/badge/${payload.meta.repoSlug}.svg`;
+  }
+
   return NextResponse.json(
-    { id, url: `${req.nextUrl.origin}/r/${id}`, deletionToken },
+    { id, url: `${req.nextUrl.origin}/r/${id}`, deletionToken, badgeUrl },
     { status: 201 },
   );
 }
