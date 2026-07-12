@@ -1,0 +1,7 @@
+node_modules/
+dist/
+*.log
+.next/
+coverage/
+apps/web/.data/
+*.tsbuildinfo

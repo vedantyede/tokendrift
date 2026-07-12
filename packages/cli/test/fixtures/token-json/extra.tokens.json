@@ -1,0 +1,10 @@
+{
+  "color": {
+    "$type": "color",
+    "success": { "$value": "#16A34A" }
+  },
+  "space": {
+    "$type": "dimension",
+    "lg": { "$value": "24px" }
+  }
+}

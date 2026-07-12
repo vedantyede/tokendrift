@@ -1,0 +1,25 @@
+:root {
+  --color-primary: #3B82F6;
+  --space-md: 16px;
+}
+
+.card {
+  color: #333;
+  background-color: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 13px;
+  margin: 25px;
+  gap: 8px;
+}
+
+.button {
+  background: var(--color-primary);
+  padding: var(--space-md);
+  color: white;
+  margin-top: 7px;
+}
+
+.alert {
+  border-color: red;
+  padding: 10px 17px;
+}

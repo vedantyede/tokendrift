@@ -1,0 +1,14 @@
+:root {
+  --space-md: 12px;
+}
+
+.card {
+  margin: 13px;
+  padding: 0.875rem 1rem;
+  gap: 6px;
+}
+
+.tokenized {
+  margin: var(--space-md);
+  padding: var(--space-lg);
+}

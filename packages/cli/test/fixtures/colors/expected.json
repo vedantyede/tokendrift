@@ -1,0 +1,112 @@
+{
+  "styles.css": {
+    "violations": [
+      {
+        "rule": "hardcoded-color",
+        "category": "color",
+        "kind": "hex",
+        "file": "styles.css",
+        "line": 6,
+        "column": 10,
+        "value": "#333",
+        "snippet": "color: #333;"
+      },
+      {
+        "rule": "hardcoded-color",
+        "category": "color",
+        "kind": "hex",
+        "file": "styles.css",
+        "line": 7,
+        "column": 21,
+        "value": "#ffffff80",
+        "snippet": "background-color: #ffffff80;"
+      },
+      {
+        "rule": "hardcoded-color",
+        "category": "color",
+        "kind": "named",
+        "file": "styles.css",
+        "line": 8,
+        "column": 21,
+        "value": "red",
+        "snippet": "border: 1px solid red;"
+      },
+      {
+        "rule": "hardcoded-color",
+        "category": "color",
+        "kind": "rgb",
+        "file": "styles.css",
+        "line": 9,
+        "column": 25,
+        "value": "rgba(0, 0, 0, 0.1)",
+        "snippet": "box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);"
+      }
+    ],
+    "tokenReferences": [
+      {
+        "category": "color",
+        "file": "styles.css",
+        "line": 13,
+        "column": 10,
+        "value": "var(--color-primary)"
+      },
+      {
+        "category": "color",
+        "file": "styles.css",
+        "line": 14,
+        "column": 15,
+        "value": "var(--color-surface)"
+      }
+    ]
+  },
+  "Button.tsx": {
+    "violations": [
+      {
+        "rule": "hardcoded-color",
+        "category": "color",
+        "kind": "hex",
+        "file": "Button.tsx",
+        "line": 4,
+        "column": 34,
+        "value": "#FF0000",
+        "snippet": "style={{ backgroundColor: '#FF0000', borderColor: 'blue' }}"
+      },
+      {
+        "rule": "hardcoded-color",
+        "category": "color",
+        "kind": "named",
+        "file": "Button.tsx",
+        "line": 4,
+        "column": 58,
+        "value": "blue",
+        "snippet": "style={{ backgroundColor: '#FF0000', borderColor: 'blue' }}"
+      },
+      {
+        "rule": "hardcoded-color",
+        "category": "color",
+        "kind": "tailwind-arbitrary",
+        "file": "Button.tsx",
+        "line": 5,
+        "column": 47,
+        "value": "bg-[#1D4ED8]",
+        "snippet": "className=\"text-white bg-blue-500 hover:bg-[#1D4ED8]\""
+      }
+    ],
+    "tokenReferences": [
+      {
+        "category": "color",
+        "file": "Button.tsx",
+        "line": 5,
+        "column": 18,
+        "value": "text-white"
+      },
+      {
+        "category": "color",
+        "file": "Button.tsx",
+        "line": 5,
+        "column": 29,
+        "value": "bg-blue-500"
+      }
+    ]
+  }
+}

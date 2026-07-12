@@ -1,0 +1,72 @@
+{
+  "styles.css": {
+    "violations": [
+      {
+        "rule": "off-scale-spacing",
+        "category": "spacing",
+        "kind": "px",
+        "file": "styles.css",
+        "line": 6,
+        "column": 11,
+        "value": "13px",
+        "snippet": "margin: 13px;"
+      }
+    ],
+    "tokenReferences": [
+      {
+        "category": "spacing",
+        "file": "styles.css",
+        "line": 12,
+        "column": 11,
+        "value": "var(--space-md)"
+      },
+      {
+        "category": "spacing",
+        "file": "styles.css",
+        "line": 13,
+        "column": 12,
+        "value": "var(--space-lg)"
+      }
+    ]
+  },
+  "Card.tsx": {
+    "violations": [
+      {
+        "rule": "off-scale-spacing",
+        "category": "spacing",
+        "kind": "px",
+        "file": "Card.tsx",
+        "line": 4,
+        "column": 28,
+        "value": "13px",
+        "snippet": "style={{ marginTop: '13px', padding: '1rem' }}"
+      },
+      {
+        "rule": "off-scale-spacing",
+        "category": "spacing",
+        "kind": "tailwind-arbitrary",
+        "file": "Card.tsx",
+        "line": 5,
+        "column": 22,
+        "value": "mt-[13px]",
+        "snippet": "className=\"p-4 mt-[13px] gap-x-2\""
+      }
+    ],
+    "tokenReferences": [
+      {
+        "category": "spacing",
+        "file": "Card.tsx",
+        "line": 5,
+        "column": 18,
+        "value": "p-4"
+      },
+      {
+        "category": "spacing",
+        "file": "Card.tsx",
+        "line": 5,
+        "column": 32,
+        "value": "gap-x-2"
+      }
+    ]
+  }
+}
