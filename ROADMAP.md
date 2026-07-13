@@ -109,11 +109,13 @@ Makes the free tool self-promoting before any paid feature exists.
 
 ---
 
-## Phase 4 — Paid product — Not started
+## Phase 4 — Paid product — In progress
 
-Everything here is explicitly **out of scope right now** per `CLAUDE.md` —
-listed here so the shape of "later" is visible, not as permission to start
-building it.
+**Started deliberately ahead of Phase 3's exit target** (500 cumulative
+scans — not yet hit, since launch posts haven't been published). This was
+an explicit decision, not an oversight — see `CLAUDE.md` for the current
+phase note. Full user accounts are still not automatically in scope; see
+`CLAUDE.md`'s "Out of scope" section for the identity-model caveat.
 
 - [ ] GitHub App (least-privilege: checks/PRs write, contents read on
       selected repos only)

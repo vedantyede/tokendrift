@@ -6,8 +6,20 @@ Full spec lives in `docs/tokendrift-prd.md` — read it before making product de
 
 ## Current phase
 
-**Phase 1 (Share MVP):** CLI + local HTML report + `--share` upload → hosted report URL.
-Do NOT build yet: GitHub App, dashboard, billing, badges, auth. See "Out of scope" below.
+**Phase 1 (Share MVP) and Phase 2 (badge + capture) are done.** Phase 3
+(public launch) is in progress — real teardowns are live, but the 500
+cumulative-scan exit target from the PRD's rollout plan hasn't been hit
+yet, since launch posts haven't been published.
+
+**Phase 4 (paid product) has been started deliberately ahead of that
+exit target** — GitHub App, PR ratchet checks, drift-delta PR comments,
+a minimal dashboard, Slack digests, and Stripe billing are now in scope.
+See `ROADMAP.md` for per-feature status. Full accounts/auth are still
+not automatically in scope just because Phase 4 is — the identity model
+for the dashboard (GitHub App installation vs. a separate login) is an
+open decision, not a foregone one; raise it before building the
+dashboard specifically. See "Out of scope" below for what's still
+excluded regardless of phase.
 
 ## Architecture
 
@@ -45,4 +57,8 @@ Ignore by default: `node_modules`, `dist`, `build`, `.next`, `coverage`, lockfil
 
 ## Out of scope (do not build even if it seems helpful)
 
-Auto-fix/codemods, IDE extensions, Vue/Svelte/Angular support, Figma sync, settings UI, auth/accounts, GitHub App (phase 4), badges (phase 2).
+Auto-fix/codemods, IDE extensions, Vue/Svelte/Angular support, Figma sync,
+settings UI. Full user accounts (email/password signup, sessions) stay out
+of scope unless a specific Phase 4 feature genuinely can't work without
+one — prefer scoping identity through the GitHub App installation and
+Stripe customer records first.
