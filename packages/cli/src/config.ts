@@ -1,11 +1,5 @@
-import { pathToFileURL } from 'node:url';
-import path from 'node:path';
-import { readFile } from 'node:fs/promises';
-import { existsSync } from 'node:fs';
-import { DEFAULT_SPACING_SCALE_PX, TAILWIND_SPACING_SUFFIXES } from './spacingScale.js';
-import { TAILWIND_PALETTE_WORDS } from './colorPalette.js';
-import { loadTailwindTheme } from './tailwindConfig.js';
-import { loadTokenJsonTheme } from './tokenJson.js';
+import { DEFAULT_SPACING_SCALE_PX, TAILWIND_SPACING_SUFFIXES } from './spacingScale';
+import { TAILWIND_PALETTE_WORDS } from './colorPalette';
 
 export interface SpacingScaleConfig {
   /** Explicit list of on-scale values, in px. Overrides `base` when set. */
@@ -59,81 +53,6 @@ export const DEFAULT_CONFIG: TokenDriftConfig = {
   detectedSpacingScaleSuffixes: null,
   detectedColorPaletteWords: [],
 };
-
-const CONFIG_FILENAMES = [
-  'tokendrift.config.js',
-  'tokendrift.config.mjs',
-  'tokendrift.config.cjs',
-  'tokendrift.config.json',
-];
-
-function mergeConfig(
-  base: TokenDriftConfig,
-  override: Partial<TokenDriftConfig>,
-): TokenDriftConfig {
-  return {
-    ignore: [...base.ignore, ...(override.ignore ?? [])],
-    spacingScale: { ...base.spacingScale, ...(override.spacingScale ?? {}) },
-    colorTokenFunctions: [
-      ...base.colorTokenFunctions,
-      ...(override.colorTokenFunctions ?? []),
-    ],
-    spacingTokenFunctions: [
-      ...base.spacingTokenFunctions,
-      ...(override.spacingTokenFunctions ?? []),
-    ],
-    colorPaletteWords: [...base.colorPaletteWords, ...(override.colorPaletteWords ?? [])],
-    tokenSources: [...base.tokenSources, ...(override.tokenSources ?? [])],
-    detectedSpacingScalePx: base.detectedSpacingScalePx,
-    detectedSpacingScaleSuffixes: base.detectedSpacingScaleSuffixes,
-    detectedColorPaletteWords: base.detectedColorPaletteWords,
-  };
-}
-
-async function loadUserConfig(rootDir: string): Promise<TokenDriftConfig> {
-  for (const filename of CONFIG_FILENAMES) {
-    const fullPath = path.join(rootDir, filename);
-    if (!existsSync(fullPath)) continue;
-
-    if (filename.endsWith('.json')) {
-      const raw = await readFile(fullPath, 'utf8');
-      const parsed = JSON.parse(raw) as Partial<TokenDriftConfig>;
-      return mergeConfig(DEFAULT_CONFIG, parsed);
-    }
-
-    const mod: unknown = await import(pathToFileURL(fullPath).href);
-    const exported =
-      mod && typeof mod === 'object' && 'default' in mod
-        ? (mod as { default: unknown }).default
-        : mod;
-    return mergeConfig(DEFAULT_CONFIG, exported as Partial<TokenDriftConfig>);
-  }
-
-  return DEFAULT_CONFIG;
-}
-
-function mergeSpacingScalePx(a: number[] | null, b: number[] | null): number[] | null {
-  if (!a && !b) return null;
-  return [...new Set([...(a ?? []), ...(b ?? [])])].sort((x, y) => x - y);
-}
-
-export async function loadConfig(rootDir: string): Promise<TokenDriftConfig> {
-  // tokenSources (for token-JSON detection) can only be known once the user
-  // config is loaded, so this step can't run in parallel with it.
-  const config = await loadUserConfig(rootDir);
-  const [tailwindTheme, tokenTheme] = await Promise.all([
-    loadTailwindTheme(rootDir),
-    loadTokenJsonTheme(rootDir, config.tokenSources),
-  ]);
-  return {
-    ...config,
-    detectedSpacingScalePx: mergeSpacingScalePx(tailwindTheme.spacingScalePx, tokenTheme.spacingScalePx),
-    detectedSpacingScaleSuffixes: tailwindTheme.spacingScaleSuffixes,
-    detectedColorPaletteWords: [
-      ...new Set([...tailwindTheme.colorPaletteWords, ...tokenTheme.colorPaletteWords]),
-    ],
-  };
-}
 
 /** Resolves the effective on-scale spacing values (in px) for a given config. */
 export function resolveSpacingScalePx(config: TokenDriftConfig): number[] {

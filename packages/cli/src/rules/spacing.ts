@@ -1,11 +1,11 @@
-import { LineIndex, resolveOverlaps, snippetAround, type RawMatch } from '../matchUtils.js';
-import { PX_PER_REM } from '../spacingScale.js';
+import { LineIndex, resolveOverlaps, snippetAround, type RawMatch } from '../matchUtils';
+import { PX_PER_REM } from '../spacingScale';
 import type { SpacingKind, TokenReference, Violation } from '../types.js';
 import {
   resolveSpacingScalePx,
   resolveSpacingScaleSuffixes,
   type TokenDriftConfig,
-} from '../config.js';
+} from '../config';
 
 const TAILWIND_SPACING_PREFIXES = [
   'mt', 'mr', 'mb', 'ml', 'mx', 'my', 'm',

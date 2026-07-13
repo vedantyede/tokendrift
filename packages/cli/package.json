@@ -9,7 +9,8 @@
   },
   "exports": {
     "./report": "./src/report.ts",
-    "./types": "./src/types.ts"
+    "./types": "./src/types.ts",
+    "./scan": "./src/scan.ts"
   },
   "files": [
     "dist"

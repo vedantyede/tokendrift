@@ -1,14 +1,15 @@
 import { parseArgs } from 'node:util';
 import { readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
-import { loadConfig } from './config.js';
+import { loadConfig } from './configLoader.js';
 import { walk } from './walker.js';
 import { detectColors } from './rules/colors.js';
 import { detectSpacing } from './rules/spacing.js';
 import { aggregateResults } from './aggregate.js';
 import { renderReport } from './report.js';
 import { buildSharePayload, uploadReport, DEFAULT_SHARE_URL } from './share.js';
-import type { FileScanResult, ScanAggregate, Violation } from './types.js';
+import { violationFingerprint } from './scan.js';
+import type { FileScanResult, ScanAggregate } from './types.js';
 
 const TOOL_VERSION = '0.1.1';
 
@@ -35,10 +36,6 @@ Options:
 
 Exit codes: 0 clean/report-only, 1 threshold failure, 2 config/runtime error.
 `;
-
-function violationFingerprint(v: Violation): string {
-  return `${v.rule}|${v.file}|${v.line}|${v.column}|${v.value}`;
-}
 
 // Caps concurrent open file handles. Unbounded Promise.all over every
 // matched file blows past the OS file-descriptor limit on large real-world

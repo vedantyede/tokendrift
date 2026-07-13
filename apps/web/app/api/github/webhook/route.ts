@@ -1,6 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createHmac, timingSafeEqual } from 'node:crypto';
 import { getGithubInstallStore } from '@/lib/githubInstallStore';
+import { runPrCheck } from '@/lib/prCheck';
+
+const PR_CHECK_ACTIONS = new Set(['opened', 'synchronize', 'reopened']);
 
 interface GithubRepoRef {
   full_name: string;
@@ -68,7 +71,17 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ ok: true });
   }
 
-  // pull_request / check_run events are handled by the PR-ratchet feature,
-  // not built yet — acknowledge so GitHub doesn't retry.
+  if (event === 'pull_request' && PR_CHECK_ACTIONS.has(payload.action)) {
+    try {
+      await runPrCheck(payload);
+    } catch (err) {
+      // A scan failure shouldn't cause GitHub to retry the whole webhook —
+      // log and still ack. Known v1 gap: no alerting if this happens
+      // repeatedly, just Vercel's function logs.
+      console.error('PR check failed:', err);
+    }
+    return NextResponse.json({ ok: true });
+  }
+
   return NextResponse.json({ ok: true, ignored: event });
 }

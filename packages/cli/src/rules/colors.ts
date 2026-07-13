@@ -1,7 +1,7 @@
-import { LineIndex, resolveOverlaps, snippetAround, type RawMatch } from '../matchUtils.js';
-import { CSS_NAMED_COLORS } from '../colorPalette.js';
+import { LineIndex, resolveOverlaps, snippetAround, type RawMatch } from '../matchUtils';
+import { CSS_NAMED_COLORS } from '../colorPalette';
 import type { ColorKind, TokenReference, Violation } from '../types.js';
-import { resolveColorPaletteWords, type TokenDriftConfig } from '../config.js';
+import { resolveColorPaletteWords, type TokenDriftConfig } from '../config';
 
 const TAILWIND_COLOR_PREFIXES = [
   'bg', 'text', 'border', 'ring-offset', 'ring', 'from', 'via', 'to', 'fill',
