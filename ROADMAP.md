@@ -117,10 +117,23 @@ an explicit decision, not an oversight — see `CLAUDE.md` for the current
 phase note. Full user accounts are still not automatically in scope; see
 `CLAUDE.md`'s "Out of scope" section for the identity-model caveat.
 
-- [ ] GitHub App (least-privilege: checks/PRs write, contents read on
-      selected repos only)
-- [ ] PR check run — scans the diff, fails on new drift vs. the base branch
-      ("ratchet mode": existing debt never blocks, new debt always does)
+- [x] GitHub App (`usetokendrift`, least-privilege: checks/PRs write,
+      contents read). Registered via GitHub's manifest flow
+      (`/setup/github-app`) rather than manual setup. Installation tracking
+      verified live against a real install (25 repos, correct account/repo
+      data stored).
+- [x] PR check run — scans the diff, fails on new drift vs. the base branch
+      ("ratchet mode": existing debt never blocks, new debt always does).
+      Fetches file content via GitHub's API (no `git` binary in Vercel's
+      serverless runtime, so cloning wasn't an option) and reuses the CLI's
+      own fingerprint-based diff logic (`tokendrift/scan`), so "new
+      violation" means the same thing here as in `--fail-on-new`. Verified
+      with a real throwaway PR: 2 intentional new hex-color violations
+      correctly detected, Check Run correctly failed with the exact
+      file/line/value, existing debt correctly excluded. Known v1 limits:
+      only `DEFAULT_CONFIG` (no per-repo tailwind/token-JSON config
+      fetching yet), capped at 200 files/PR, processed synchronously
+      within the webhook request (no queue).
 - [ ] Drift-delta PR comments (one comment per PR, updated in place)
 - [ ] Minimal dashboard: repo list, score trend chart, latest report link,
       billing — nothing else
