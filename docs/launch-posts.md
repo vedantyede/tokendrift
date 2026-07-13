@@ -10,13 +10,15 @@ posting these myself.
 ## Show HN
 
 **Title** (80 char HN limit):
-```
+
+```text
 Show HN: TokenDrift – find hardcoded colors/spacing hiding in your CSS
 ```
 
 **Body** (goes in the URL/text field, or as the first comment if you
 submit a link instead):
-```
+
+```text
 Hi HN — I built TokenDrift, a CLI that scans a codebase for design
 system drift: hardcoded colors and off-scale spacing that quietly
 bypass your design tokens.
@@ -63,50 +65,42 @@ something similar), or anything else.
 
 ## r/webdev
 
-**Title:**
-```
-I built a CLI that scores how much your codebase has drifted from your design tokens (free, local-only, zero deps)
-```
+**Important:** r/webdev's rules require project self-promotion to go in
+the weekly **"Showoff Saturday"** stickied megathread, not as a standalone
+post — a standalone post like this would likely get removed under Rule 3
+(no self-promotion) and Rule 5 (no soliciting feedback outside that
+thread). Post this as a **comment inside that week's Showoff Saturday
+thread** instead (pinned at the top of the subreddit on Saturdays).
+Megathread comments are also expected to be shorter than a standalone
+post — trimmed accordingly below.
 
-**Body:**
-```
-Self-promo disclosure up front: I built this, it's called TokenDrift.
-Posting because I think it solves a real, boring problem well, not to
-farm karma — mods, happy to add flair or move this if it's against the
-rules here.
+**Comment (for the Showoff Saturday thread):**
 
-The problem: your team has a design system. Six months later, the
-codebase is full of `#3B82F6` and `margin: 13px` that bypass it, and
-nobody can point to a number that shows how bad it's gotten.
+```text
+TokenDrift — a CLI that scores how much a codebase has drifted from
+its own design tokens (hardcoded colors, off-scale spacing).
 
     npx tokendrift .
 
-Zero dependencies, runs 100% locally (read the source before you trust
-it with your employer's repo — that's the whole point of zero deps).
-It finds hardcoded colors and off-scale spacing, works out your token
-adoption rate, and rolls it into one Drift Score out of 100. `--share`
-is opt-in if you want a hosted link instead of just a local HTML file.
+Zero dependencies, runs 100% locally, opt-in --share if you want a
+hosted link instead of just a local HTML file.
 
-I ran it against a few real open-source repos to sanity check it
-instead of just trusting synthetic test cases, and I'm glad I did —
-found and fixed a few real bugs that way (a crash on repos with tens
-of thousands of files, and a false-positive where any word like "red"
-or "blue" near the text "color:" got flagged even in plain data
-objects that had nothing to do with styling). Results, for what it's
-worth:
+Sanity-checked it against a few real open-source repos instead of
+just synthetic tests, which turned up real bugs (a crash on repos
+with tens of thousands of files, and named colors like "red"/"blue"
+getting flagged even in plain data objects with nothing to do with
+styling). Fixed both. Results:
 
 - Dub: 82/100 — https://tokendrift-vedantyedes-projects.vercel.app/r/9GNaJ2M_jc81GDZ_9B9Z5Q
 - Formbricks: 87/100 — https://tokendrift-vedantyedes-projects.vercel.app/r/JuKMkzk5IYM2dc7R19DsMQ
 - Twenty: 77/100 — https://tokendrift-vedantyedes-projects.vercel.app/r/60K5vksSV58e7yNR4oRh1w
 
-Currently handles CSS/SCSS/JS/TS/JSX/TSX and auto-detects tokens from
-CSS variables, Tailwind config, or token JSON. No Vue/Svelte yet — if
-there's real demand I'll add it.
+CSS/SCSS/JS/TS/JSX/TSX, auto-detects tokens from CSS variables,
+Tailwind config, or token JSON. No Vue/Svelte yet.
 
-Source's open: https://github.com/vedantyede/tokendrift
+Source: https://github.com/vedantyede/tokendrift
 
-Genuinely curious what breaks it on your codebase if anyone tries it —
-false positives are the thing I most want to hear about.
+Would love to know what it finds (or gets wrong) on your codebase.
 ```
 
 ---
@@ -114,14 +108,16 @@ false positives are the thing I most want to hear about.
 ## dev.to
 
 **Title:**
-```
+
+```text
 How much has your codebase drifted from your own design system? I built a CLI to find out.
 ```
 
 **Tags:** `webdev`, `css`, `showdev`, `opensource`
 
 **Article body:**
-```
+
+```markdown
 ## The problem nobody's tracking
 
 Every team I've worked with eventually hits the same wall: they build
