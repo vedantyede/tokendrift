@@ -86,10 +86,16 @@ connected yet). It does several jobs now:
    open-source projects.
 6. **Usage stats** (`/api/stats`) — a simple, no-login page showing how
    many reports have been shared and viewed in total.
+7. **GitHub App** (`usetokendrift`) — installs on a GitHub account/org and
+   watches pull requests. When a PR opens or updates, it scans the changed
+   files and posts a pass/fail check: it only fails on drift the PR
+   *added* — a file that already had problems before doesn't block
+   anyone, only new ones do. See section 3b for how this works.
 
 This website runs on **Vercel**, and needs two storage services connected:
 - **Vercel Blob** — stores the actual report files.
-- **Redis** (via Upstash) — a fast lookup table for reports and badges.
+- **Redis** (via Upstash) — a fast lookup table for reports, badges, and
+  which repos have the GitHub App installed.
 
 Both are already connected in production (see section 6).
 
@@ -124,6 +130,36 @@ Not part of the product — small tools for running the business.
    - It uploads just the report data — never your actual source code —
      to the website, and gives you back a link, a one-time delete link,
      and (if a git remote was found) a badge you can paste into a README.
+
+---
+
+## 3b. How the GitHub App's PR check works
+
+This is separate from a normal scan — nobody has to type a command for
+this one, it just happens automatically once the app is installed on a
+repo.
+
+1. Someone opens or updates a pull request on a repo that has the app
+   installed.
+2. GitHub sends TokenDrift's website a notification ("webhook") about it.
+3. The website checks the notification is genuinely from GitHub (a signed
+   secret only GitHub and the website know), then asks GitHub for a
+   short-lived, scoped-down access token for just that one installation.
+4. It asks GitHub which files changed in the PR, downloads each one's
+   *before* (base branch) and *after* (PR branch) content, and scans both
+   with the same scanner logic the CLI uses.
+5. It compares the two: a violation only counts as "new" if it wasn't
+   already there before the PR. Old problems in a file the PR merely
+   touches don't fail anything — only genuinely new ones do. This is why
+   it's called a "ratchet" — the score can't get worse over time on the
+   parts being watched, only better.
+6. It posts the result back to GitHub as a green check (nothing new) or a
+   red one (lists exactly which new violations, and where).
+
+Current limits, on purpose for now: it always uses the built-in default
+scale/rules rather than fetching a repo's own custom token config yet,
+and very large pull requests (200+ changed files) only get partially
+scanned.
 
 ---
 
@@ -193,10 +229,9 @@ cd packages/cli
 npm publish
 ```
 `npm login` must be run by you, interactively. Publishing is **hard to
-undo** — once live, anyone can download it. As of this writing, `0.1.0`
-is published; `0.1.1` (with several fixes) is built and ready but not yet
-published — the last publish attempt needs a fresh npm auth token (a
-Granular Access Token with "bypass 2FA" turned on).
+undo** — once live, anyone can download it. Each publish also needs a
+fresh npm auth token (a Granular Access Token with "bypass 2FA" turned
+on) — npm requires this per publish, it isn't a one-time setup.
 
 ### Run the website on your own computer
 
@@ -212,9 +247,12 @@ Then open `http://localhost:3000`.
 npx vercel --prod
 ```
 Run from the **repo root** (not `apps/web`) — the project needs the whole
-monorepo present to resolve the CLI package it depends on. Already
-connected to GitHub, so a normal `git push` to `master` also
-auto-deploys.
+monorepo present to resolve the CLI package it depends on. Connected to
+GitHub, so a normal `git push` to `main` (the default branch) is
+*supposed* to auto-deploy too — but as of this writing, pushes have been
+landing as Preview deployments instead of Production, so `vercel --prod`
+is still needed manually. Worth checking Vercel's dashboard (Settings →
+Git → Production Branch) to confirm it says `main`.
 
 ### Save and share your code with git
 
@@ -239,11 +277,16 @@ tokendrift/
 ├── scripts/                     Internal tools (not part of the product)
 ├── packages/cli/                The scanner tool (Part A)
 │   ├── src/                     Its source code
+│   │   ├── scan.ts              Scanner pieces shared with the website's PR check
+│   │   └── configLoader.ts      Reads tokendrift.config.js etc. from disk (CLI-only)
 │   ├── test/                    Its automated tests
 │   └── dist/                    The built, runnable tool (after `npm run build`)
 └── apps/web/                    The website (Part B)
     ├── app/                     Its pages and API routes
-    └── lib/                     Its storage logic (local vs. Vercel)
+    │   ├── api/github/          GitHub App webhook + one-time setup callback
+    │   ├── setup/github-app/    One-click page to register the GitHub App
+    │   └── install/             Redirects to the app's GitHub install page
+    └── lib/                     Its storage logic and GitHub App auth/API helpers
 ```
 
 ---
@@ -252,23 +295,35 @@ tokendrift/
 
 - **The CLI tool works** and has been tested against real open-source
   projects (not just the sample repo) — Dub, Twenty, and Formbricks.
-  Testing against real code found and fixed four real bugs: a crash on
-  repos with tens of thousands of files, colors wrongly flagged outside
-  real style code, colors wrongly flagged in test files, and (a known,
-  unfixed limit) no way to recognize a company's own bespoke token files.
-- **npm:** `tokendrift@0.1.0` is published — `npx tokendrift` works today.
-  `0.1.1` is built locally with more fixes but not yet published (waiting
-  on a fresh auth token).
-- **GitHub:** pushed, at `github.com/vedantyede/tokendrift`.
+  Testing against real code found and fixed four real scanner bugs: a
+  crash on repos with tens of thousands of files, colors wrongly flagged
+  outside real style code, colors wrongly flagged in test files, and (a
+  known, unfixed limit) no way to recognize a company's own bespoke token
+  files.
+- **npm:** `tokendrift@0.1.1` is published — `npx tokendrift` works today
+  with the latest fixes.
+- **GitHub:** pushed, at `github.com/vedantyede/tokendrift`. The default
+  branch is now `main` (renamed from `master`).
 - **Vercel:** deployed and live at
-  `tokendrift-vedantyedes-projects.vercel.app`, connected to GitHub for
-  auto-deploy, with Blob and Redis storage both connected.
+  `tokendrift-vedantyedes-projects.vercel.app`, with Blob and Redis
+  storage both connected. Connected to GitHub, but auto-deploy-on-push
+  currently lands as a Preview rather than Production build — worth
+  checking the Production Branch setting in Vercel's dashboard. Deploys
+  have been done manually (`vercel --prod`) in the meantime.
 - **Custom domain** (`usetokendrift.com`): not purchased/connected yet —
   deliberately deferred.
+- **GitHub App** (`usetokendrift`): registered and installed. The PR
+  ratchet check is live and verified against a real pull request — it
+  correctly caught 2 intentionally-added violations and correctly
+  ignored pre-existing ones.
 - **Phase 1 (share MVP) and Phase 2 (badge + capture) are done.** Phase 3
   (public launch) is in progress: 3 real teardowns are live (see
   `ROADMAP.md` for links), and basic usage-stat tracking is live. Launch
   posts (Show HN, r/webdev, dev.to) haven't been written or posted yet.
+  **Phase 4 (paid product) was started deliberately ahead of Phase 3's
+  finish line** — see `CLAUDE.md`'s phase note for why. GitHub App and
+  the PR check are done; drift-delta PR comments, a dashboard, Slack
+  digests, and billing are not built yet.
 
 ---
 
@@ -290,3 +345,7 @@ tokendrift/
 | **Vercel** | A hosting company. It runs the TokenDrift website and gives it a public web address. |
 | **Redis** | A fast lookup-table database, used here to remember report/badge data. |
 | **CI** (Continuous Integration) | Automated checks that run every time code changes, to catch problems early. |
+| **GitHub App** | A program that can be installed on a GitHub account/org to act on its repos with limited, specific permissions — here, reading code and posting PR checks. |
+| **Webhook** | GitHub's way of notifying a website the moment something happens (a PR opens, a repo installs the app), instead of the website having to keep asking. |
+| **Check Run** | The pass/fail result GitHub shows on a pull request — this is what the ratchet check posts. |
+| **Ratchet** | A one-way rule: a score/check can only get better (or stay the same) over time, never quietly get worse, because new problems are blocked even though old ones aren't. |
