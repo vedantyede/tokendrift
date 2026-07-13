@@ -18,7 +18,11 @@ export default async function GithubAppSetupPage() {
       contents: 'read',
       metadata: 'read',
     },
-    default_events: ['pull_request', 'check_run', 'installation', 'installation_repositories'],
+    // installation and installation_repositories are sent automatically to
+    // every GitHub App regardless of subscribed events (they're not tied
+    // to a resource permission, unlike pull_request/check_run) — listing
+    // them here is invalid and GitHub rejects the manifest.
+    default_events: ['pull_request', 'check_run'],
   };
 
   return (
