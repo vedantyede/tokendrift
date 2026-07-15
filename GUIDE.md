@@ -86,8 +86,7 @@ connected yet). It does several jobs now:
    open-source projects.
 6. **Usage stats** (`/api/stats`) — a simple, no-login page showing how
    many reports have been shared and viewed in total.
-7. **GitHub App** (`tokensdrift`) — installs on a
-   GitHub account/org and
+7. **GitHub App** (`tokensdrift`) — installs on a GitHub account/org and
    watches pull requests. When a PR opens or updates, it scans the changed
    files and posts a pass/fail check: it only fails on drift the PR
    *added* — a file that already had problems before doesn't block
@@ -305,9 +304,9 @@ tokensdrift/
 - **npm:** `tokensdrift@0.1.0` is published — `npx tokensdrift` works today.
   The old `tokendrift` package is deprecated (points anyone who finds it
   to the new name) but stays up since npm can't fully unpublish it.
-- **GitHub:** pushed, still at `github.com/vedantyede/tokendrift` — the
-  repo itself wasn't renamed (optional, GitHub redirects the old name
-  automatically either way). The default branch is `main` (renamed from
+- **GitHub:** renamed to `github.com/vedantyede/tokensdrift` (GitHub
+  auto-redirects the old `tokendrift` URL, and the local git remote is
+  updated to match). The default branch is `main` (renamed from
   `master`).
 - **Vercel:** project renamed to `tokensdrift`, deployed and live at
   `tokensdrift-vedantyedes-projects.vercel.app` (the old `tokendrift-*`
