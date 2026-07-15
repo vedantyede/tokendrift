@@ -6,6 +6,8 @@ coverage/
 apps/web/.data/
 *.tsbuildinfo
 .vercel
+apps/web/demo-recordings/
+apps/web/test-results/
 
 .env*
 *-report.html

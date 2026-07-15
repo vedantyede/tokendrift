@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>tokensdrift — PR check</title>
+<style>
+  html, body {
+    margin: 0;
+    height: 100%;
+    background: #0d1117;
+    font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+  }
+  .titlebar {
+    background: #161b22;
+    color: #8b949e;
+    padding: 8px 14px;
+    font-size: 13px;
+    border-bottom: 1px solid #30363d;
+  }
+  #output {
+    color: #c9d1d9;
+    font-size: 15px;
+    line-height: 1.6;
+    padding: 20px;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+  .prompt { color: #58a6ff; }
+  .pass { color: #3fb950; font-weight: bold; }
+  .fail { color: #f85149; font-weight: bold; }
+  .comment { color: #8b949e; font-style: italic; }
+</style>
+</head>
+<body>
+  <div class="titlebar">tokensdrift — PR check (ratchet mode)</div>
+  <pre id="output"></pre>
+  <script>
+    const out = document.getElementById('output');
+    function append(text) {
+      const isPrompt = text.startsWith('$ ');
+      const isComment = text.startsWith('#');
+      const isFail = text.startsWith('✗');
+      const isPass = text.startsWith('✓');
+      const span = document.createElement('span');
+      span.textContent = text + '\n';
+      if (isPrompt) span.className = 'prompt';
+      else if (isComment) span.className = 'comment';
+      else if (isFail) span.className = 'fail';
+      else if (isPass) span.className = 'pass';
+      out.appendChild(span);
+      window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    const es = new EventSource('/run');
+    es.onmessage = (e) => append(e.data);
+    es.addEventListener('done', () => es.close());
+    es.onerror = () => es.close();
+  </script>
+</body>
+</html>
