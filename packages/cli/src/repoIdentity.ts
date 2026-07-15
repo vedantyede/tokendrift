@@ -28,6 +28,17 @@ function normalizeRemoteUrl(url: string): string {
 }
 
 /**
+ * The hash step alone, exposed separately so anything that already knows a
+ * canonical remote URL (e.g. the web app deriving a slug from a GitHub App
+ * installation's `owner/repo`, with no local .git checkout available) can
+ * reproduce the same slug without re-deriving it from a filesystem.
+ */
+export function slugFromRemoteUrl(url: string): string {
+  const normalized = normalizeRemoteUrl(url);
+  return createHash('sha256').update(normalized).digest('base64url').slice(0, 20);
+}
+
+/**
  * A stable identity for "the same repo" across separate --share runs, so a
  * README badge can track the latest score rather than one frozen snapshot.
  * Derived from the origin remote in .git/config — no git binary required,
@@ -48,6 +59,5 @@ export function deriveRepoSlug(rootDir: string): string | null {
   const match = content.match(/\[remote "origin"\][^[]*?\burl\s*=\s*(\S+)/);
   if (!match || !match[1]) return null;
 
-  const normalized = normalizeRemoteUrl(match[1]);
-  return createHash('sha256').update(normalized).digest('base64url').slice(0, 20);
+  return slugFromRemoteUrl(match[1]);
 }

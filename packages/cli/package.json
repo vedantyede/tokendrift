@@ -10,7 +10,8 @@
   "exports": {
     "./report": "./src/report.ts",
     "./types": "./src/types.ts",
-    "./scan": "./src/scan.ts"
+    "./scan": "./src/scan.ts",
+    "./repoIdentity": "./src/repoIdentity.ts"
   },
   "files": [
     "dist"
