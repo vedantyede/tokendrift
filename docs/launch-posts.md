@@ -52,7 +52,7 @@ custom properties, Tailwind config, or W3C token JSON. No Vue/Svelte
 support yet, no auto-fix (by design — I'd rather show you where the
 drift is than guess at a rewrite).
 
-Source: https://github.com/vedantyede/tokensdrift
+Source: https://github.com/vedantyede/tokendrift
 npm: https://www.npmjs.com/package/tokensdrift
 
 Happy to answer questions about the scoring formula, the false
@@ -98,7 +98,7 @@ styling). Fixed both. Results:
 CSS/SCSS/JS/TS/JSX/TSX, auto-detects tokens from CSS variables,
 Tailwind config, or token JSON. No Vue/Svelte yet.
 
-Source: https://github.com/vedantyede/tokensdrift
+Source: https://github.com/vedantyede/tokendrift
 
 Would love to know what it finds (or gets wrong) on your codebase.
 ```
@@ -131,7 +131,7 @@ a manual audit (stale before the meeting where you present it ends) or
 a generic linter (which flags syntax, not *adoption* — it can't tell
 you your token coverage dropped 4% this sprint).
 
-So I built [TokensDrift](https://github.com/vedantyede/tokensdrift), a
+So I built [TokensDrift](https://github.com/vedantyede/tokendrift), a
 CLI that scans a codebase and turns "design system drift" into one
 number.
 
@@ -213,7 +213,7 @@ drift is than guess at a rewrite. If there's real interest, a CI mode
 that fails a PR on *new* drift (without blocking on existing debt) is
 next.
 
-Source is open: https://github.com/vedantyede/tokensdrift
+Source is open: https://github.com/vedantyede/tokendrift
 npm: https://www.npmjs.com/package/tokensdrift
 
 Would genuinely like to know what it finds (or gets wrong) on your
