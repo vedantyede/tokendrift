@@ -1,4 +1,4 @@
-# TokenDrift — Landing Page Copy (usetokendrift.com)
+# TokensDrift — Landing Page Copy (tokensdrift.com)
 
 Copy for every section, top to bottom, with layout notes in *italics*. Voice: direct, developer-to-developer, zero marketing fluff. The page has one job: get the visitor to run one command.
 
@@ -12,11 +12,11 @@ Copy for every section, top to bottom, with layout notes in *italics*. Voice: di
 Your design system is drifting. Here's your score.
 
 **Subhead:**
-TokenDrift scans your codebase for hardcoded colors, off-scale spacing, and unused design tokens — then gives you a shareable report with a score your whole team understands.
+TokensDrift scans your codebase for hardcoded colors, off-scale spacing, and unused design tokens — then gives you a shareable report with a score your whole team understands.
 
 **Primary CTA (command box):**
 ```
-npx tokendrift
+npx tokensdrift
 ```
 *(copy button; beneath it, small text:)*
 Free · No signup · Runs locally · Nothing leaves your machine
@@ -62,7 +62,7 @@ It starts small. One `#3B82F6` hardcoded under deadline pressure. One `margin: 1
 One command. One score. One argument your team can't ignore.
 
 **Step 1 — Scan**
-Run `npx tokendrift` in any repo. It auto-detects your tokens from CSS variables, Tailwind config, or token JSON — no setup, no account, nothing uploaded.
+Run `npx tokensdrift` in any repo. It auto-detects your tokens from CSS variables, Tailwind config, or token JSON — no setup, no account, nothing uploaded.
 
 **Step 2 — Score**
 Get a Drift Score out of 100, a category breakdown, and the exact files responsible. Not just "you have 340 violations" — but "fix these 10 files and eliminate 60% of your drift."
@@ -96,7 +96,7 @@ Every report is a self-contained page: score, trends, top offenders, and a prior
 The scan tells you where you are. The ratchet makes sure you never go back.
 
 **Body:**
-Install the TokenDrift GitHub App and drift can only go down. Every PR gets scanned; any PR that introduces new hardcoded values fails the check — with a comment showing the author exactly what to fix. Your score history becomes the chart you show leadership.
+Install the TokensDrift GitHub App and drift can only go down. Every PR gets scanned; any PR that introduces new hardcoded values fails the check — with a comment showing the author exactly what to fix. Your score history becomes the chart you show leadership.
 
 **Feature bullets:**
 - **PR checks (ratchet mode):** new drift fails CI. Existing debt doesn't block anyone — it just can't grow.
@@ -116,7 +116,7 @@ Install the TokenDrift GitHub App and drift can only go down. Every PR gets scan
 - Unlimited local scans
 - Shareable hosted reports
 - README badge
-- *CTA: `npx tokendrift`*
+- *CTA: `npx tokensdrift`*
 
 **Pro — $29/mo per repo**
 - Everything in Free
@@ -132,7 +132,7 @@ Install the TokenDrift GitHub App and drift can only go down. Every PR gets scan
 - Priority support
 - *CTA: Start free trial*
 
-*(Under cards:)* Questions about bigger teams? Email founder@usetokendrift.com — you'll get me, not a sales team.
+*(Under cards:)* Questions about bigger teams? Email founder@tokensdrift.com — you'll get me, not a sales team.
 
 ---
 
@@ -178,7 +178,7 @@ Not yet. If you need it, email me — enough requests moves it up the roadmap.
 Find out your score in the next 60 seconds.
 
 ```
-npx tokendrift
+npx tokensdrift
 ```
 
 *(Small text:)* Free · No signup · Your code stays local
@@ -187,7 +187,7 @@ npx tokendrift
 
 ## Meta / SEO
 
-- **Title tag:** TokenDrift — Design System Drift Scanner & Score for Your Codebase
-- **Meta description:** Scan your codebase for hardcoded colors, off-scale spacing, and low design token adoption. Get a shareable Drift Score in 60 seconds with one command: npx tokendrift. Free, local, zero dependencies.
+- **Title tag:** TokensDrift — Design System Drift Scanner & Score for Your Codebase
+- **Meta description:** Scan your codebase for hardcoded colors, off-scale spacing, and low design token adoption. Get a shareable Drift Score in 60 seconds with one command: npx tokensdrift. Free, local, zero dependencies.
 - **OG image:** a report screenshot with a big score (e.g., 62/100) — the score is the scroll-stopper.
 - **Target queries:** design system drift, design token adoption, detect hardcoded colors, design system audit tool, tailwind arbitrary values lint.

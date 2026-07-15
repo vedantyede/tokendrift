@@ -12,18 +12,18 @@ posting these myself.
 **Title** (80 char HN limit):
 
 ```text
-Show HN: TokenDrift – find hardcoded colors/spacing hiding in your CSS
+Show HN: TokensDrift – find hardcoded colors/spacing hiding in your CSS
 ```
 
 **Body** (goes in the URL/text field, or as the first comment if you
 submit a link instead):
 
 ```text
-Hi HN — I built TokenDrift, a CLI that scans a codebase for design
+Hi HN — I built TokensDrift, a CLI that scans a codebase for design
 system drift: hardcoded colors and off-scale spacing that quietly
 bypass your design tokens.
 
-npx tokendrift .
+npx tokensdrift .
 
 It's zero-dependency Node, runs entirely locally, and gives you a
 Drift Score (0-100) plus a report showing exactly which files and
@@ -39,21 +39,21 @@ later nobody can say when "mostly following the system" became
 Three real examples, not staged demos — I ran it against open-source
 repos and checked every number by hand before publishing:
 - Dub (dub.co): 82/100, 93% token adoption
-  https://tokendrift-vedantyedes-projects.vercel.app/r/9GNaJ2M_jc81GDZ_9B9Z5Q
+  https://tokensdrift-vedantyedes-projects.vercel.app/r/9GNaJ2M_jc81GDZ_9B9Z5Q
 - Formbricks: 87/100, 96% adoption
-  https://tokendrift-vedantyedes-projects.vercel.app/r/JuKMkzk5IYM2dc7R19DsMQ
+  https://tokensdrift-vedantyedes-projects.vercel.app/r/JuKMkzk5IYM2dc7R19DsMQ
 - Twenty (CRM): 77/100, 80% adoption — one CSS file explains most of
   the gap: it declares its own tokens at the top and then falls back
   to a dozen+ different raw hex values in the rest of the file anyway.
-  https://tokendrift-vedantyedes-projects.vercel.app/r/60K5vksSV58e7yNR4oRh1w
+  https://tokensdrift-vedantyedes-projects.vercel.app/r/60K5vksSV58e7yNR4oRh1w
 
 Current scope: CSS/SCSS/JS/TS/JSX/TSX, auto-detects tokens from CSS
 custom properties, Tailwind config, or W3C token JSON. No Vue/Svelte
 support yet, no auto-fix (by design — I'd rather show you where the
 drift is than guess at a rewrite).
 
-Source: https://github.com/vedantyede/tokendrift
-npm: https://www.npmjs.com/package/tokendrift
+Source: https://github.com/vedantyede/tokensdrift
+npm: https://www.npmjs.com/package/tokensdrift
 
 Happy to answer questions about the scoring formula, the false
 positives I found and fixed while building this (test files count as
@@ -77,10 +77,10 @@ post — trimmed accordingly below.
 **Comment (for the Showoff Saturday thread):**
 
 ```text
-TokenDrift — a CLI that scores how much a codebase has drifted from
+TokensDrift — a CLI that scores how much a codebase has drifted from
 its own design tokens (hardcoded colors, off-scale spacing).
 
-    npx tokendrift .
+    npx tokensdrift .
 
 Zero dependencies, runs 100% locally, opt-in --share if you want a
 hosted link instead of just a local HTML file.
@@ -91,14 +91,14 @@ with tens of thousands of files, and named colors like "red"/"blue"
 getting flagged even in plain data objects with nothing to do with
 styling). Fixed both. Results:
 
-- Dub: 82/100 — https://tokendrift-vedantyedes-projects.vercel.app/r/9GNaJ2M_jc81GDZ_9B9Z5Q
-- Formbricks: 87/100 — https://tokendrift-vedantyedes-projects.vercel.app/r/JuKMkzk5IYM2dc7R19DsMQ
-- Twenty: 77/100 — https://tokendrift-vedantyedes-projects.vercel.app/r/60K5vksSV58e7yNR4oRh1w
+- Dub: 82/100 — https://tokensdrift-vedantyedes-projects.vercel.app/r/9GNaJ2M_jc81GDZ_9B9Z5Q
+- Formbricks: 87/100 — https://tokensdrift-vedantyedes-projects.vercel.app/r/JuKMkzk5IYM2dc7R19DsMQ
+- Twenty: 77/100 — https://tokensdrift-vedantyedes-projects.vercel.app/r/60K5vksSV58e7yNR4oRh1w
 
 CSS/SCSS/JS/TS/JSX/TSX, auto-detects tokens from CSS variables,
 Tailwind config, or token JSON. No Vue/Svelte yet.
 
-Source: https://github.com/vedantyede/tokendrift
+Source: https://github.com/vedantyede/tokensdrift
 
 Would love to know what it finds (or gets wrong) on your codebase.
 ```
@@ -131,13 +131,13 @@ a manual audit (stale before the meeting where you present it ends) or
 a generic linter (which flags syntax, not *adoption* — it can't tell
 you your token coverage dropped 4% this sprint).
 
-So I built [TokenDrift](https://github.com/vedantyede/tokendrift), a
+So I built [TokensDrift](https://github.com/vedantyede/tokensdrift), a
 CLI that scans a codebase and turns "design system drift" into one
 number.
 
 ## What it does
 
-    npx tokendrift .
+    npx tokensdrift .
 
 It walks your `.css`, `.scss`, `.tsx`, `.jsx`, `.ts`, and `.js` files
 and finds:
@@ -195,9 +195,9 @@ file and a raw HTML email template, neither of which is real drift):
 
 | Repo | Score | Token adoption |
 |---|---|---|
-| [Dub](https://tokendrift-vedantyedes-projects.vercel.app/r/9GNaJ2M_jc81GDZ_9B9Z5Q) | 82/100 | 93% |
-| [Formbricks](https://tokendrift-vedantyedes-projects.vercel.app/r/JuKMkzk5IYM2dc7R19DsMQ) | 87/100 | 96% |
-| [Twenty](https://tokendrift-vedantyedes-projects.vercel.app/r/60K5vksSV58e7yNR4oRh1w) | 77/100 | 80% |
+| [Dub](https://tokensdrift-vedantyedes-projects.vercel.app/r/9GNaJ2M_jc81GDZ_9B9Z5Q) | 82/100 | 93% |
+| [Formbricks](https://tokensdrift-vedantyedes-projects.vercel.app/r/JuKMkzk5IYM2dc7R19DsMQ) | 87/100 | 96% |
+| [Twenty](https://tokensdrift-vedantyedes-projects.vercel.app/r/60K5vksSV58e7yNR4oRh1w) | 77/100 | 80% |
 
 Twenty's report is a good example of what this is actually for: one
 CSS file declares its own custom properties at the top, then falls
@@ -213,8 +213,8 @@ drift is than guess at a rewrite. If there's real interest, a CI mode
 that fails a PR on *new* drift (without blocking on existing debt) is
 next.
 
-Source is open: https://github.com/vedantyede/tokendrift
-npm: https://www.npmjs.com/package/tokendrift
+Source is open: https://github.com/vedantyede/tokensdrift
+npm: https://www.npmjs.com/package/tokensdrift
 
 Would genuinely like to know what it finds (or gets wrong) on your
 codebase.

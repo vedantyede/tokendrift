@@ -1,7 +1,7 @@
 import { getInstallationToken } from './githubAuth';
 import { listPrFiles, fetchFileContent, createCheckRun } from './githubApi';
-import { detectColors, detectSpacing, DEFAULT_CONFIG, violationFingerprint } from 'tokendrift/scan';
-import type { Violation } from 'tokendrift/types';
+import { detectColors, detectSpacing, DEFAULT_CONFIG, violationFingerprint } from 'tokensdrift/scan';
+import type { Violation } from 'tokensdrift/types';
 
 // Sanity cap for a single webhook invocation — large PRs get a partial scan
 // rather than risking a serverless function timeout. Known v1 limitation.
@@ -70,7 +70,7 @@ export async function runPrCheck(payload: PullRequestPayload): Promise<void> {
   }
 
   await createCheckRun(token, owner, repo, {
-    name: 'TokenDrift',
+    name: 'TokensDrift',
     headSha,
     conclusion,
     title,

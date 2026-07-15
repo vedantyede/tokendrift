@@ -11,21 +11,21 @@ import { buildSharePayload, uploadReport, DEFAULT_SHARE_URL } from './share.js';
 import { violationFingerprint } from './scan.js';
 import type { FileScanResult, ScanAggregate } from './types.js';
 
-const TOOL_VERSION = '0.1.1';
+const TOOL_VERSION = '0.1.0';
 
-const USAGE = `tokendrift [dir] [options]
+const USAGE = `tokensdrift [dir] [options]
 
 Scans a codebase for design system drift and generates a scored HTML report.
 
 Options:
-  -o, --output <path>       HTML report output path (default: tokendrift-report.html)
+  -o, --output <path>       HTML report output path (default: tokensdrift-report.html)
   --json <path>             Also write the raw scan aggregate as JSON
   --baseline <path>         Previous scan JSON (from --json) to compare against
   --fail-on-new             Exit 1 if new violations exist vs. --baseline
   --max-score-drop <n>      Exit 1 if the score drops by more than n vs. --baseline
   --share                   Upload the report artifact and print a hosted URL.
                              Opt-in; nothing is uploaded unless you pass this.
-  --teardown-title <text>   Render as a "Published by TokenDrift" editorial
+  --teardown-title <text>   Render as a "Published by TokensDrift" editorial
                              teardown (for public write-ups of open-source
                              repos), with this as the headline.
   --teardown-note <text>    Optional short editorial note shown under the
@@ -126,13 +126,13 @@ async function main(): Promise<number> {
   }
 
   const rootDir = path.resolve(process.cwd(), positionals[0] ?? '.');
-  const outputPath = path.resolve(process.cwd(), (values.output as string) ?? 'tokendrift-report.html');
+  const outputPath = path.resolve(process.cwd(), (values.output as string) ?? 'tokensdrift-report.html');
 
   let aggregate: ScanAggregate;
   try {
     aggregate = await scanRepo(rootDir);
   } catch (err) {
-    process.stderr.write(`tokendrift: scan failed: ${(err as Error).message}\n`);
+    process.stderr.write(`tokensdrift: scan failed: ${(err as Error).message}\n`);
     return 2;
   }
 
@@ -154,7 +154,7 @@ async function main(): Promise<number> {
       await writeFile(jsonPath, JSON.stringify(aggregate, null, 2), 'utf8');
     }
   } catch (err) {
-    process.stderr.write(`tokendrift: failed to write report: ${(err as Error).message}\n`);
+    process.stderr.write(`tokensdrift: failed to write report: ${(err as Error).message}\n`);
     return 2;
   }
 
@@ -189,7 +189,7 @@ async function main(): Promise<number> {
     } catch (err) {
       // A hosting outage must never break a local scan (N3) — this is a
       // warning, not a failure; scan/threshold exit codes are unaffected.
-      process.stderr.write(`tokendrift: --share upload failed: ${(err as Error).message}\n`);
+      process.stderr.write(`tokensdrift: --share upload failed: ${(err as Error).message}\n`);
     }
   }
 
@@ -200,25 +200,25 @@ async function main(): Promise<number> {
 
   if ((maxScoreDropRaw !== undefined || failOnNew) && !values.baseline) {
     process.stderr.write(
-      'tokendrift: --fail-on-new / --max-score-drop require --baseline <path>; skipping threshold checks.\n',
+      'tokensdrift: --fail-on-new / --max-score-drop require --baseline <path>; skipping threshold checks.\n',
     );
   } else if (values.baseline) {
     const baseline = await readBaseline(path.resolve(process.cwd(), values.baseline as string));
     if (!baseline) {
-      process.stderr.write(`tokendrift: could not read baseline at ${values.baseline}\n`);
+      process.stderr.write(`tokensdrift: could not read baseline at ${values.baseline}\n`);
       return 2;
     }
 
     if (maxScoreDropRaw !== undefined) {
       const maxDrop = Number(maxScoreDropRaw);
       if (Number.isNaN(maxDrop)) {
-        process.stderr.write(`tokendrift: --max-score-drop must be a number, got "${maxScoreDropRaw}"\n`);
+        process.stderr.write(`tokensdrift: --max-score-drop must be a number, got "${maxScoreDropRaw}"\n`);
         return 2;
       }
       const drop = baseline.driftScore.score - aggregate.driftScore.score;
       if (drop > maxDrop) {
         process.stderr.write(
-          `tokendrift: drift score dropped by ${drop} (max allowed: ${maxDrop})\n`,
+          `tokensdrift: drift score dropped by ${drop} (max allowed: ${maxDrop})\n`,
         );
         exitCode = 1;
       }
@@ -230,7 +230,7 @@ async function main(): Promise<number> {
         (v) => !baselineFingerprints.has(violationFingerprint(v)),
       );
       if (newViolations.length > 0) {
-        process.stderr.write(`tokendrift: ${newViolations.length} new violation(s) introduced\n`);
+        process.stderr.write(`tokensdrift: ${newViolations.length} new violation(s) introduced\n`);
         exitCode = 1;
       }
     }
@@ -242,7 +242,7 @@ async function main(): Promise<number> {
 main().then(
   (code) => process.exit(code),
   (err) => {
-    process.stderr.write(`tokendrift: unexpected error: ${(err as Error).stack ?? err}\n`);
+    process.stderr.write(`tokensdrift: unexpected error: ${(err as Error).stack ?? err}\n`);
     process.exit(2);
   },
 );

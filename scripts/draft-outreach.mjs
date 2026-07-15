@@ -7,7 +7,7 @@
 //   node scripts/draft-outreach.mjs <path-or-git-url> [--name "Their Name"] [--share]
 //
 // --share uploads the report and links to a real hosted page in the email
-// (needs --share-url wired below, or set TOKENDRIFT_SHARE_URL env var).
+// (needs --share-url wired below, or set TOKENSDRIFT_SHARE_URL env var).
 
 import { execFileSync } from 'node:child_process';
 import { mkdtempSync, rmSync, readFileSync } from 'node:fs';
@@ -41,17 +41,17 @@ const isUrl = /^(https?:\/\/|git@)/.test(target);
 let scanDir = target;
 let cloneDir = null;
 
-const jsonOut = path.join(mkdtempSync(path.join(tmpdir(), 'tokendrift-scan-')), 'scan.json');
+const jsonOut = path.join(mkdtempSync(path.join(tmpdir(), 'tokensdrift-scan-')), 'scan.json');
 const htmlOut = path.join(path.dirname(jsonOut), 'report.html');
 
 const shareArgs = args.share
-  ? ['--share', '--share-url', process.env.TOKENDRIFT_SHARE_URL ?? 'https://tokendrift-vedantyedes-projects.vercel.app']
+  ? ['--share', '--share-url', process.env.TOKENSDRIFT_SHARE_URL ?? 'https://tokensdrift-vedantyedes-projects.vercel.app']
   : [];
 
 let shareUrl = null;
 try {
   if (isUrl) {
-    cloneDir = mkdtempSync(path.join(tmpdir(), 'tokendrift-outreach-'));
+    cloneDir = mkdtempSync(path.join(tmpdir(), 'tokensdrift-outreach-'));
     console.error(`Cloning ${target}...`);
     // core.longpaths works around Windows' 260-char MAX_PATH default, which
     // real-world monorepos (deeply nested feature folders) routinely exceed.
@@ -93,7 +93,7 @@ lines.push('');
 lines.push(`Hi ${name},`);
 lines.push('');
 lines.push(
-  `I ran TokenDrift (a free, local-only scanner — nothing leaves your machine) against ${repoLabel}. ` +
+  `I ran TokensDrift (a free, local-only scanner — nothing leaves your machine) against ${repoLabel}. ` +
     `It measures how much of a codebase actually uses your design tokens vs. hardcoded colors and spacing.`,
 );
 lines.push('');

@@ -7,17 +7,17 @@ import { loadTokenJsonTheme } from './tokenJson.js';
 import { DEFAULT_CONFIG, type TokenDriftConfig } from './config.js';
 
 // Split out from config.ts on purpose: this file does real filesystem
-// walking (tokendrift.config.js, tailwind.config.*, token JSON discovery),
+// walking (tokensdrift.config.js, tailwind.config.*, token JSON discovery),
 // which only the CLI itself needs. Bundlers that trace dynamic fs access
 // (e.g. Next.js/Turbopack's Node File Trace) choke on it if it's reachable
 // from a serverless function that only wants the pure DEFAULT_CONFIG/types
 // in config.ts — found this the hard way wiring the PR-check feature.
 
 const CONFIG_FILENAMES = [
-  'tokendrift.config.js',
-  'tokendrift.config.mjs',
-  'tokendrift.config.cjs',
-  'tokendrift.config.json',
+  'tokensdrift.config.js',
+  'tokensdrift.config.mjs',
+  'tokensdrift.config.cjs',
+  'tokensdrift.config.json',
 ];
 
 function mergeConfig(

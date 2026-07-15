@@ -2,7 +2,7 @@
   "name": "web",
   "version": "0.1.0",
   "private": true,
-  "description": "TokenDrift landing page + hosted report pages (usetokendrift.com).",
+  "description": "TokensDrift landing page + hosted report pages (tokensdrift.com).",
   "type": "module",
   "scripts": {
     "dev": "next dev",
@@ -16,7 +16,7 @@
     "react-dom": "^19.2.0",
     "@vercel/blob": "^2.6.1",
     "@upstash/redis": "^1.38.0",
-    "tokendrift": "*"
+    "tokensdrift": "*"
   },
   "devDependencies": {
     "@types/node": "^20.14.10",

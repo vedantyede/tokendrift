@@ -3,7 +3,7 @@ import { scrubSecrets } from './scrub.js';
 import { deriveRepoSlug } from './repoIdentity.js';
 import type { ScanAggregate, ShareResult, ShareUploadPayload, Violation } from './types.js';
 
-export const DEFAULT_SHARE_URL = 'https://usetokendrift.com';
+export const DEFAULT_SHARE_URL = 'https://tokensdrift.com';
 
 function scrubViolation(v: Violation): Violation {
   return { ...v, value: scrubSecrets(v.value), snippet: scrubSecrets(v.snippet) };

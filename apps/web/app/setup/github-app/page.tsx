@@ -7,8 +7,8 @@ export default async function GithubAppSetupPage() {
   const origin = `${proto}://${host}`;
 
   const manifest = {
-    name: 'TokenDrift',
-    url: 'https://tokendrift-vedantyedes-projects.vercel.app',
+    name: 'TokensDrift',
+    url: 'https://tokensdrift.com',
     hook_attributes: { url: `${origin}/api/github/webhook` },
     redirect_url: `${origin}/api/github/manifest-callback`,
     public: true,
@@ -37,7 +37,7 @@ export default async function GithubAppSetupPage() {
         fontFamily: 'system-ui, sans-serif',
       }}
     >
-      <h1 style={{ fontSize: 28, margin: 0 }}>Create the TokenDrift GitHub App</h1>
+      <h1 style={{ fontSize: 28, margin: 0 }}>Create the TokensDrift GitHub App</h1>
       <p style={{ color: '#666', lineHeight: 1.6, margin: 0 }}>
         One click registers the app on GitHub with the right permissions already filled in
         (checks: write, pull requests: write, contents: read). You&rsquo;ll get credentials to

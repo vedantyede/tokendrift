@@ -17,7 +17,7 @@ const EMPTY_THEME: DetectedTokenTheme = { spacingScalePx: null, colorPaletteWord
 
 // Conventional filenames for a W3C Design Tokens Community Group format
 // token file. Additional paths can be supplied via `tokenSources` in
-// tokendrift.config.js.
+// tokensdrift.config.js.
 const DEFAULT_TOKEN_FILENAMES = ['tokens.json', 'design-tokens.json', 'design.tokens.json'];
 
 interface FlatToken {
@@ -145,7 +145,7 @@ async function loadOneTokenFile(filePath: string): Promise<DetectedTokenTheme> {
 /**
  * Auto-detects design tokens from W3C Design Tokens Community Group format
  * JSON files: conventional filenames in `rootDir`, plus any `tokenSources`
- * paths from tokendrift.config.js. Results from multiple files are merged.
+ * paths from tokensdrift.config.js. Results from multiple files are merged.
  */
 export async function loadTokenJsonTheme(
   rootDir: string,

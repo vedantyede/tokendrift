@@ -1,4 +1,4 @@
-import type { ScanAggregate, ShareUploadPayload } from 'tokendrift/types';
+import type { ScanAggregate, ShareUploadPayload } from 'tokensdrift/types';
 
 export const MAX_PAYLOAD_BYTES = 5 * 1024 * 1024;
 // Sanity cap, not a hard product limit — the local HTML report already

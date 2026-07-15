@@ -1,8 +1,8 @@
-# TokenDrift
+# TokensDrift
 
-CLI tool that scans codebases for design system drift (hardcoded colors, off-scale spacing, low token adoption) and generates a scored, shareable HTML report. Domain: usetokendrift.com. npm: `tokendrift`.
+CLI tool that scans codebases for design system drift (hardcoded colors, off-scale spacing, low token adoption) and generates a scored, shareable HTML report. Domain: tokensdrift.com. npm: `tokensdrift`.
 
-Full spec lives in `docs/tokendrift-prd.md` — read it before making product decisions.
+Full spec lives in `docs/tokensdrift-prd.md` — read it before making product decisions.
 
 ## Current phase
 
@@ -34,7 +34,7 @@ Detect in `.css`, `.scss`, `.tsx`, `.jsx`, `.ts`, `.js`:
 2. **Off-scale spacing:** px/rem values not on the detected or configured scale; Tailwind arbitrary spacing (`mt-[13px]`).
 3. **Token adoption rate:** ratio of tokenized values (var(--x), theme() refs, Tailwind scale classes) to raw values, per category.
 
-Token sources (auto-detect, overridable in `tokendrift.config.js`): CSS custom properties in the repo, `tailwind.config.{js,ts}`, token JSON (W3C design tokens format).
+Token sources (auto-detect, overridable in `tokensdrift.config.js`): CSS custom properties in the repo, `tailwind.config.{js,ts}`, token JSON (W3C design tokens format).
 
 **Drift Score (0–100):** weighted — token adoption % (50%), violation density per KLOC (30%), violation concentration (20%). Deterministic: same input ⇒ same score. Version the formula (`scoreVersion` in JSON output).
 
@@ -44,7 +44,7 @@ Ignore by default: `node_modules`, `dist`, `build`, `.next`, `coverage`, lockfil
 
 - Opt-in only. Uploads the report artifact (JSON: aggregates, file paths, flagged value snippets) — NEVER full source files.
 - Run secret-pattern scrubbing on snippets before upload (common key/token regexes).
-- POST to the web app, get back `https://usetokendrift.com/r/{id}` (unguessable nanoid, ≥ 21 chars) + a deletion token printed once.
+- POST to the web app, get back `https://tokensdrift.com/r/{id}` (unguessable nanoid, ≥ 21 chars) + a deletion token printed once.
 
 ## Conventions
 

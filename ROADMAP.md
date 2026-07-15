@@ -1,7 +1,7 @@
-# TokenDrift — Roadmap
+# TokensDrift — Roadmap
 
 This lists what's built, what's next, and in what order. It follows the phases
-laid out in `docs/tokendrift-prd_1.md` — this file is the plain-language,
+laid out in `docs/tokensdrift-prd_1.md` — this file is the plain-language,
 status-tracked version of that plan.
 
 ---
@@ -18,7 +18,7 @@ The core loop works end to end, live in production:
 - [x] `--share` uploads the report and returns a hosted URL
 - [x] Secret scrubbing before any upload
 - [x] Exit codes for CI (`--fail-on-new`, `--max-score-drop`)
-- [x] Published to npm — `npx tokendrift` works for anyone
+- [x] Published to npm — `npx tokensdrift` works for anyone
 - [x] Web app live on Vercel with a real homepage and hosted report pages
 
 - [x] Report deletion via a tokenized link — `--share` now prints
@@ -30,7 +30,7 @@ The core loop works end to end, live in production:
       so expired reports don't linger as orphaned public URLs forever
 
 **Not yet done from Phase 1:**
-- [ ] Custom domain (`usetokendrift.com`) — deliberately deferred (not
+- [ ] Custom domain (`tokensdrift.com`) — deliberately deferred (not
       purchased/connected yet). The CLI's default `--share` target still
       points at this domain, so until it's connected, `--share` needs
       `--share-url` pointed at the current `.vercel.app` URL. **Promoted to
@@ -58,7 +58,7 @@ Makes the free tool self-promoting before any paid feature exists.
       Captures land in a simple append-only list (`email-captures` in Redis)
       for the future paid-launch outreach (PRD F11) — no automated emails
       sent yet, just the capture.
-- [x] "Published by TokenDrift" mode for public teardowns of open-source
+- [x] "Published by TokensDrift" mode for public teardowns of open-source
       repos. `--teardown-title`/`--teardown-note` render a distinct
       branded banner (headline + short editorial note) and override the
       page `<title>`. Pure rendering choice, not hosting-dependent — works
@@ -75,7 +75,7 @@ Makes the free tool self-promoting before any paid feature exists.
 
 Order matters here, not just the list of tasks:
 
-1. [ ] **Connect `usetokendrift.com` first** — before any launch post.
+1. [ ] **Connect `tokensdrift.com` first** — before any launch post.
        Links posted publicly are permanent; a `.vercel.app` URL in a Show HN
        post reads as abandoned a year later in a way a real domain doesn't.
 2. [ ] **Launch posts, one per week — not all at once:** Show HN, then
@@ -93,9 +93,9 @@ Order matters here, not just the list of tasks:
        hand-picked repos.
 4. [x] 2–3 open-source teardowns published using the badge/teardown mode above.
       Three live, real, independently-verified:
-      - [Dub — 82/100, 93% adoption](https://tokendrift-vedantyedes-projects.vercel.app/r/9GNaJ2M_jc81GDZ_9B9Z5Q)
-      - [Twenty — 77/100, 80% adoption](https://tokendrift-vedantyedes-projects.vercel.app/r/60K5vksSV58e7yNR4oRh1w)
-      - [Formbricks — 87/100, 96% adoption](https://tokendrift-vedantyedes-projects.vercel.app/r/JuKMkzk5IYM2dc7R19DsMQ)
+      - [Dub — 82/100, 93% adoption](https://tokensdrift-vedantyedes-projects.vercel.app/r/9GNaJ2M_jc81GDZ_9B9Z5Q)
+      - [Twenty — 77/100, 80% adoption](https://tokensdrift-vedantyedes-projects.vercel.app/r/60K5vksSV58e7yNR4oRh1w)
+      - [Formbricks — 87/100, 96% adoption](https://tokensdrift-vedantyedes-projects.vercel.app/r/JuKMkzk5IYM2dc7R19DsMQ)
 
       Producing these surfaced and fixed two more real scanner bugs (in
       addition to the two from the outreach-drafting work): named colors
@@ -151,7 +151,7 @@ were originally listed in:
        fifth before these four are solid.
 4. [ ] **Slack weekly digest + regression alerts last** — needs teams with
        real repos connected to exist first, or there's nothing to digest.
-5. [x] GitHub App (`usetokendrift`, least-privilege: checks/PRs write,
+5. [x] GitHub App (`tokensdrift`, least-privilege: checks/PRs write,
        contents read). Registered via GitHub's manifest flow
        (`/setup/github-app`) rather than manual setup. Installation
        tracking verified live against a real install (25 repos, correct
@@ -161,7 +161,7 @@ were originally listed in:
        does). Fetches file content via GitHub's API (no `git` binary in
        Vercel's serverless runtime, so cloning wasn't an option) and
        reuses the CLI's own fingerprint-based diff logic
-       (`tokendrift/scan`), so "new violation" means the same thing here
+       (`tokensdrift/scan`), so "new violation" means the same thing here
        as in `--fail-on-new`. Verified with a real throwaway PR: 2
        intentional new hex-color violations correctly detected, Check Run
        correctly failed with the exact file/line/value, existing debt
@@ -193,7 +193,7 @@ now:
 ## Expansion A — License & component compliance scanner — GATED
 
 **Gate: 5 paying teams.** Not before — the go-to-market for this is "from
-the makers of TokenDrift," which requires TokenDrift to be an established
+the makers of TokensDrift," which requires TokensDrift to be an established
 name first, not a project. Reuses the scanner pipeline, report renderer,
 `--share` infra, and badge endpoint nearly wholesale, so the marginal build
 cost is low once the gate opens.
@@ -223,8 +223,8 @@ process, and support burden than anything else here.
 
 When it opens: variables/styles → Tailwind/CSS vars/Style Dictionary
 export; a diff mode ("Figma says #6366F1, code says #6466F2") that points
-TokenDrift's existing drift detection at the design side, not just code;
-bundle pricing with TokenDrift Team (~$99/mo suite).
+TokensDrift's existing drift detection at the design side, not just code;
+bundle pricing with TokensDrift Team (~$99/mo suite).
 
 ---
 
@@ -236,7 +236,7 @@ after 25 paying teams, per the PRD:
 - Auto-fix / codemods
 - IDE extensions (VS Code, JetBrains)
 - Vue, Svelte, Angular, or native mobile support
-- A web-based settings UI (config stays in `tokendrift.config.js`)
+- A web-based settings UI (config stays in `tokensdrift.config.js`)
 - On-prem deployment, SSO/SAML
 
 ---

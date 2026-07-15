@@ -1,11 +1,11 @@
 {
-  "name": "tokendrift",
-  "version": "0.1.1",
+  "name": "tokensdrift",
+  "version": "0.1.0",
   "description": "Scan codebases for design system drift and generate a scored, shareable report.",
   "type": "module",
   "license": "MIT",
   "bin": {
-    "tokendrift": "dist/index.js"
+    "tokensdrift": "dist/index.js"
   },
   "exports": {
     "./report": "./src/report.ts",

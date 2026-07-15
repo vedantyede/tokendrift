@@ -74,7 +74,7 @@ export interface ShareMeta {
    */
   repoSlug?: string;
   /**
-   * "Published by TokenDrift" editorial teardown mode (PRD growth
+   * "Published by TokensDrift" editorial teardown mode (PRD growth
    * mechanic #4) — set via --teardown-title/--teardown-note for public
    * teardowns of open-source repos used as content marketing. Ordinary
    * shared reports never set this.

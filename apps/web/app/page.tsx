@@ -15,7 +15,7 @@ export default function Home() {
     <>
       <header className={styles.header}>
         <div className={styles.wordmark}>
-          token<span>drift</span>
+          tokens<span>drift</span>
         </div>
         <nav>
           <Link href="#scan">Sample scan</Link>
@@ -27,7 +27,7 @@ export default function Home() {
           <div className={styles.eyebrow}>Design system drift detection</div>
           <h1>Your design system is drifting. Here&rsquo;s your score.</h1>
           <p className={styles.heroSub}>
-            TokenDrift scans your codebase for hardcoded colors, off-scale spacing, and unused
+            TokensDrift scans your codebase for hardcoded colors, off-scale spacing, and unused
             design tokens &mdash; then gives you a shareable report with a <strong>score</strong>{' '}
             your whole team understands.
           </p>
@@ -49,7 +49,7 @@ export default function Home() {
 
           <div className={styles.ctaRow}>
             <div className={styles.commandBox}>
-              <span className={styles.prompt}>$</span> npx tokendrift
+              <span className={styles.prompt}>$</span> npx tokensdrift
             </div>
             <Link className={styles.btn} href="#scan">
               See a live report &rarr;
@@ -95,7 +95,7 @@ export default function Home() {
               <div className={styles.stepIndex}>01</div>
               <h3>Scan</h3>
               <p>
-                Run <code>npx tokendrift</code> in any repo. It auto-detects your tokens from CSS
+                Run <code>npx tokensdrift</code> in any repo. It auto-detects your tokens from CSS
                 variables, Tailwind config, or token JSON &mdash; no setup, no account, nothing
                 uploaded.
               </p>
@@ -131,7 +131,7 @@ export default function Home() {
 
           <div className={styles.scanPanel}>
             <div className={styles.scanPanelTop}>
-              <span className={styles.path}>tokendrift examples/sample-repo</span>
+              <span className={styles.path}>tokensdrift examples/sample-repo</span>
               <span>2 files &middot; 37 lines</span>
             </div>
             <div className={styles.scanBody}>
@@ -254,17 +254,17 @@ export default function Home() {
             <h2>Find out your score in the next 60 seconds.</h2>
           </div>
           <div className={styles.codeBlock}>
-            <span className={styles.comment}># scans the current directory, writes tokendrift-report.html</span>
+            <span className={styles.comment}># scans the current directory, writes tokensdrift-report.html</span>
             <br />
-            <span className={styles.prompt}>$</span> npx tokendrift .
+            <span className={styles.prompt}>$</span> npx tokensdrift .
           </div>
           <div className={styles.trustLine}>Free &middot; No signup &middot; Your code stays local</div>
         </section>
       </main>
 
       <footer className={styles.footer}>
-        <span>tokendrift</span>
-        <span>usetokendrift.com</span>
+        <span>tokensdrift</span>
+        <span>tokensdrift.com</span>
       </footer>
     </>
   );

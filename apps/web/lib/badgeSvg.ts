@@ -45,6 +45,6 @@ export function renderBadge(label: string, value: string, color: string): string
 }
 
 export function renderScoreBadge(score: number | null): string {
-  if (score === null) return renderBadge('tokendrift', 'no data', NEUTRAL);
-  return renderBadge('tokendrift', `${score}/100`, scoreColor(score));
+  if (score === null) return renderBadge('tokensdrift', 'no data', NEUTRAL);
+  return renderBadge('tokensdrift', `${score}/100`, scoreColor(score));
 }

@@ -72,7 +72,7 @@ test('renderReport omits teardown framing by default', () => {
   });
 
   assert.ok(!html.includes('teardown-banner'));
-  assert.ok(!html.includes('Published by TokenDrift'));
+  assert.ok(!html.includes('Published by TokensDrift'));
 });
 
 test('renderReport shows teardown banner, title, and note when set, and escapes them', () => {
@@ -86,10 +86,10 @@ test('renderReport shows teardown banner, title, and note when set, and escapes 
   });
 
   assert.ok(html.includes('teardown-banner'));
-  assert.ok(html.includes('Published by TokenDrift'));
+  assert.ok(html.includes('Published by TokensDrift'));
   assert.ok(html.includes('A look at token adoption in a popular open-source repo.'));
   assert.ok(!html.includes('<script>alert(1)</script>'));
   assert.ok(html.includes('&lt;script&gt;'));
   // The <title> tag should reflect the teardown title, not the generic one.
-  assert.ok(!html.includes('<title>TokenDrift Report'));
+  assert.ok(!html.includes('<title>TokensDrift Report'));
 });

@@ -1,17 +1,17 @@
-# TokenDrift — Plain Guide
+# TokensDrift — Plain Guide
 
 This file explains the whole project in plain words. It also lists every
 command you may need, and when to use it.
 
-The other files in this project (`CLAUDE.md`, `docs/tokendrift-prd_1.md`,
-`docs/tokendrift-landing-copy_1.md`, `ROADMAP.md`) are written for other
+The other files in this project (`CLAUDE.md`, `docs/tokensdrift-prd_1.md`,
+`docs/tokensdrift-landing-copy_1.md`, `ROADMAP.md`) are written for other
 purposes — build rules, a business plan, marketing copy, and a feature
 checklist. This file is written for you to understand what exists and how
 to use it.
 
 ---
 
-## 1. What TokenDrift does
+## 1. What TokensDrift does
 
 Big companies build a "design system." That means a shared set of colors,
 spacing sizes, and styles that every screen should use. Developers call
@@ -22,7 +22,7 @@ someone types `#1D4ED8` directly into the code. Instead of the shared
 spacing size, someone types `13px`. This is called **drift** — the code
 slowly moves away from the design system.
 
-**TokenDrift is a tool that finds this drift.** You point it at a project's
+**TokensDrift is a tool that finds this drift.** You point it at a project's
 code. It reads every CSS and React file (skipping test files — see below).
 It finds:
 
@@ -63,12 +63,12 @@ real developers will install and run on their own projects.
   dependencies"). This is on purpose — it makes the tool small, fast, and
   safe to trust with someone else's code.
 - It gets published to **npm**, the library store for JavaScript. Once
-  published, anyone can run it with `npx tokendrift`.
+  published, anyone can run it with `npx tokensdrift`.
 
 ### Part B — The website (`apps/web`)
 
 A normal website, built with **Next.js**, live at
-`tokendrift-vedantyedes-projects.vercel.app` (a real custom domain isn't
+`tokensdrift-vedantyedes-projects.vercel.app` (a real custom domain isn't
 connected yet). It does several jobs now:
 
 1. **Homepage** — explains the product, shows a real sample scan.
@@ -82,11 +82,11 @@ connected yet). It does several jobs now:
    hosted report pages, for the future paid-launch list. Nothing
    automated sends emails yet — it just saves the address.
 5. **Teardown mode** — hosted (and local) reports can be dressed up as a
-   "Published by TokenDrift" editorial write-up, for public content about
+   "Published by TokensDrift" editorial write-up, for public content about
    open-source projects.
 6. **Usage stats** (`/api/stats`) — a simple, no-login page showing how
    many reports have been shared and viewed in total.
-7. **GitHub App** (`usetokendrift`) — installs on a GitHub account/org and
+7. **GitHub App** (`tokensdrift`) — installs on a GitHub account/org and
    watches pull requests. When a PR opens or updates, it scans the changed
    files and posts a pass/fail check: it only fails on drift the PR
    *added* — a file that already had problems before doesn't block
@@ -111,9 +111,9 @@ Not part of the product — small tools for running the business.
 
 ## 3. How a scan actually works, step by step
 
-1. You type a command like `npx tokendrift .` in a project's folder.
+1. You type a command like `npx tokensdrift .` in a project's folder.
 2. The tool looks at the project's settings, if any exist
-   (`tokendrift.config.js`), to learn the team's real tokens and spacing
+   (`tokensdrift.config.js`), to learn the team's real tokens and spacing
    sizes.
 3. It walks through every `.css`, `.scss`, `.tsx`, `.jsx`, `.ts`, and `.js`
    file, skipping folders like `node_modules` and `dist`, and skipping
@@ -141,7 +141,7 @@ repo.
 
 1. Someone opens or updates a pull request on a repo that has the app
    installed.
-2. GitHub sends TokenDrift's website a notification ("webhook") about it.
+2. GitHub sends TokensDrift's website a notification ("webhook") about it.
 3. The website checks the notification is genuinely from GitHub (a signed
    secret only GitHub and the website know), then asks GitHub for a
    short-lived, scoped-down access token for just that one installation.
@@ -166,7 +166,7 @@ scanned.
 ## 4. Commands — what to run, and when
 
 All commands below assume you are inside the project's main folder
-(`D:\Application\tokendrift`), unless a step says otherwise.
+(`D:\Application\tokensdrift`), unless a step says otherwise.
 
 ### Set up the project (do this once, or after pulling new code)
 
@@ -203,14 +203,14 @@ Useful extra flags:
   and a badge (if a git remote is found).
 - `--share-url <url>` — use a different server than the default (needed
   right now, since the real domain isn't connected — use
-  `https://tokendrift-vedantyedes-projects.vercel.app`).
+  `https://tokensdrift-vedantyedes-projects.vercel.app`).
 - `--teardown-title "..."` and `--teardown-note "..."` — render the
-  report as a branded "Published by TokenDrift" editorial write-up
+  report as a branded "Published by TokensDrift" editorial write-up
   instead of a plain report.
 
 Once the CLI is published to npm, this becomes simpler:
 ```
-npx tokendrift <folder-to-scan>
+npx tokensdrift <folder-to-scan>
 ```
 
 ### Draft a cold-outreach email for a real target
@@ -221,7 +221,7 @@ node scripts/draft-outreach.mjs <path-or-github-url> [--name "Their Name"] [--sh
 Scans the target and prints a ready-to-send email with the real score,
 top offenders, and (with `--share`) a real hosted link.
 
-### Publish the CLI to npm (makes `npx tokendrift` work for everyone)
+### Publish the CLI to npm (makes `npx tokensdrift` work for everyone)
 
 ```
 npm login
@@ -267,7 +267,7 @@ git push
 ## 5. Where things are (folder map)
 
 ```
-tokendrift/
+tokensdrift/
 ├── CLAUDE.md                    Rules for how this project should be built
 ├── GUIDE.md                     This file — plain explanation for you
 ├── ROADMAP.md                   Feature checklist by phase, with current status
@@ -278,7 +278,7 @@ tokendrift/
 ├── packages/cli/                The scanner tool (Part A)
 │   ├── src/                     Its source code
 │   │   ├── scan.ts              Scanner pieces shared with the website's PR check
-│   │   └── configLoader.ts      Reads tokendrift.config.js etc. from disk (CLI-only)
+│   │   └── configLoader.ts      Reads tokensdrift.config.js etc. from disk (CLI-only)
 │   ├── test/                    Its automated tests
 │   └── dist/                    The built, runnable tool (after `npm run build`)
 └── apps/web/                    The website (Part B)
@@ -300,19 +300,19 @@ tokendrift/
   outside real style code, colors wrongly flagged in test files, and (a
   known, unfixed limit) no way to recognize a company's own bespoke token
   files.
-- **npm:** `tokendrift@0.1.1` is published — `npx tokendrift` works today
+- **npm:** `tokensdrift@0.1.1` is published — `npx tokensdrift` works today
   with the latest fixes.
-- **GitHub:** pushed, at `github.com/vedantyede/tokendrift`. The default
+- **GitHub:** pushed, at `github.com/vedantyede/tokensdrift`. The default
   branch is now `main` (renamed from `master`).
 - **Vercel:** deployed and live at
-  `tokendrift-vedantyedes-projects.vercel.app`, with Blob and Redis
+  `tokensdrift-vedantyedes-projects.vercel.app`, with Blob and Redis
   storage both connected. Connected to GitHub, but auto-deploy-on-push
   currently lands as a Preview rather than Production build — worth
   checking the Production Branch setting in Vercel's dashboard. Deploys
   have been done manually (`vercel --prod`) in the meantime.
-- **Custom domain** (`usetokendrift.com`): not purchased/connected yet —
+- **Custom domain** (`tokensdrift.com`): not purchased/connected yet —
   deliberately deferred.
-- **GitHub App** (`usetokendrift`): registered and installed. The PR
+- **GitHub App** (`tokensdrift`): registered and installed. The PR
   ratchet check is live and verified against a real pull request — it
   correctly caught 2 intentionally-added violations and correctly
   ignored pre-existing ones.
@@ -342,7 +342,7 @@ tokendrift/
 | **Repo** (repository) | A project's folder, tracked by git, so every change is saved as history. |
 | **git** | Software that saves snapshots ("commits") of your code over time. |
 | **GitHub** | A website that stores your git repo online, so others can see or contribute to it. |
-| **Vercel** | A hosting company. It runs the TokenDrift website and gives it a public web address. |
+| **Vercel** | A hosting company. It runs the TokensDrift website and gives it a public web address. |
 | **Redis** | A fast lookup-table database, used here to remember report/badge data. |
 | **CI** (Continuous Integration) | Automated checks that run every time code changes, to catch problems early. |
 | **GitHub App** | A program that can be installed on a GitHub account/org to act on its repos with limited, specific permissions — here, reading code and posting PR checks. |

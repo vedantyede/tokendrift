@@ -25,7 +25,7 @@ const EMPTY_THEME: DetectedTailwindTheme = {
 // transpiler (the zero-dependency constraint rules both out). A
 // `tailwind.config.ts` is silently skipped — auto-detection falls back to
 // Tailwind's default scale/palette, still overridable via
-// `tokendrift.config.js`.
+// `tokensdrift.config.js`.
 const LOADABLE_CONFIG_FILENAMES = [
   'tailwind.config.js',
   'tailwind.config.cjs',

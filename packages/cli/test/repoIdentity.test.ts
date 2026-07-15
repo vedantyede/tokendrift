@@ -6,7 +6,7 @@ import path from 'node:path';
 import { deriveRepoSlug } from '../src/repoIdentity.js';
 
 async function makeRepo(remoteUrl: string | null): Promise<string> {
-  const dir = await mkdtemp(path.join(tmpdir(), 'tokendrift-repoid-'));
+  const dir = await mkdtemp(path.join(tmpdir(), 'tokensdrift-repoid-'));
   await mkdir(path.join(dir, '.git'), { recursive: true });
   const config = remoteUrl
     ? `[core]\n\trepositoryformatversion = 0\n[remote "origin"]\n\turl = ${remoteUrl}\n\tfetch = +refs/heads/*:refs/remotes/origin/*\n`
@@ -50,7 +50,7 @@ test('deriveRepoSlug returns null with no origin remote', async () => {
 });
 
 test('deriveRepoSlug returns null with no .git directory at all', async () => {
-  const dir = await mkdtemp(path.join(tmpdir(), 'tokendrift-nogit-'));
+  const dir = await mkdtemp(path.join(tmpdir(), 'tokensdrift-nogit-'));
   try {
     assert.equal(deriveRepoSlug(dir), null);
   } finally {

@@ -1,4 +1,4 @@
-import type { ScanAggregate, ShareMeta } from 'tokendrift/types';
+import type { ScanAggregate, ShareMeta } from 'tokensdrift/types';
 
 export interface StoredReport {
   aggregate: ScanAggregate;
@@ -36,7 +36,7 @@ export function getStore(): Promise<ReportStore> {
 
     if (process.env.NODE_ENV === 'production') {
       console.warn(
-        'tokendrift: BLOB_READ_WRITE_TOKEN / KV_REST_API_URL+KV_REST_API_TOKEN are not set — ' +
+        'tokensdrift: BLOB_READ_WRITE_TOKEN / KV_REST_API_URL+KV_REST_API_TOKEN are not set — ' +
           'falling back to local filesystem storage, which does not work on serverless deploys.',
       );
     }

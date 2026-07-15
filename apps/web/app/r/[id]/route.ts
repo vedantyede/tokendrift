@@ -1,5 +1,5 @@
 import { NextRequest } from 'next/server';
-import { renderReport } from 'tokendrift/report';
+import { renderReport } from 'tokensdrift/report';
 import { getStore } from '@/lib/store';
 import { getStatsStore } from '@/lib/statsStore';
 

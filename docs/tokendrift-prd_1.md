@@ -1,7 +1,7 @@
-# PRD: TokenDrift
+# PRD: TokensDrift
 
 **Author:** Vedant
-**Status:** Draft v1.1 (final name: TokenDrift · domain: usetokendrift.com)
+**Status:** Draft v1.1 (final name: TokensDrift · domain: tokensdrift.com)
 **Last updated:** July 11, 2026
 
 ---
@@ -10,15 +10,15 @@
 
 ### 1.1 One-liner
 
-TokenDrift is a CLI-first tool that scans codebases for design system drift (hardcoded colors, off-scale spacing, low token adoption), generates a shareable scored report, and — for paying teams — enforces drift limits in CI so design debt can only go down.
+TokensDrift is a CLI-first tool that scans codebases for design system drift (hardcoded colors, off-scale spacing, low token adoption), generates a shareable scored report, and — for paying teams — enforces drift limits in CI so design debt can only go down.
 
 ### 1.2 Naming and identity
 
-- **Product name:** TokenDrift (one word, capital T and D in prose; `tokendrift` in code contexts)
-- **Domain:** usetokendrift.com ("use" prefix is a domain workaround only — never part of the brand name in copy, README, badge, or npm)
-- **npm:** `tokendrift` → `npx tokendrift`
-- **GitHub org:** `tokendrift` (verify and claim at registration time)
-- **Future:** acquire tokendrift.dev as a premium purchase post-revenue; 301 usetokendrift.com to it
+- **Product name:** TokensDrift (one word, capital T and D in prose; `tokensdrift` in code contexts)
+- **Domain:** tokensdrift.com ("use" prefix is a domain workaround only — never part of the brand name in copy, README, badge, or npm)
+- **npm:** `tokensdrift` → `npx tokensdrift`
+- **GitHub org:** `tokensdrift` (verify and claim at registration time)
+- **Future:** acquire tokensdrift.dev as a premium purchase post-revenue; 301 tokensdrift.com to it
 
 ### 1.3 Problem statement
 
@@ -34,7 +34,7 @@ The CLI and free report are the acquisition channel; the CI ratchet and history 
 
 ### 2.1 Goals
 
-1. A developer can go from zero to a hosted, shareable drift report in under 2 minutes with a single `npx tokendrift` command and no signup.
+1. A developer can go from zero to a hosted, shareable drift report in under 2 minutes with a single `npx tokensdrift` command and no signup.
 2. A team can install a GitHub App that blocks PRs introducing new drift within 15 minutes of first scan.
 3. The free report is persuasive enough that recipients share it (target: ≥ 0.3 shares per scan).
 4. Reach first 10 paying teams within 90 days of paid launch.
@@ -45,7 +45,7 @@ The CLI and free report are the acquisition channel; the CI ratchet and history 
 - **IDE extensions** (VS Code, JetBrains).
 - **Framework breadth.** v1 targets React + CSS/Tailwind/CSS-variable stacks only. No Vue, Svelte, Angular, native mobile.
 - **Figma/design-tool integration.** Code-side only for v1.
-- **Settings UI.** All configuration lives in `tokendrift.config.js`; no web-based config editor.
+- **Settings UI.** All configuration lives in `tokensdrift.config.js`; no web-based config editor.
 
 ---
 
@@ -69,7 +69,7 @@ Runs one-off audits for clients. Uses free scans and shared reports as client de
 
 | # | As a… | I want to… | So that… | Priority |
 |---|-------|-----------|----------|----------|
-| U1 | Developer | run `npx tokendrift` with no config | I get a drift report on any repo instantly | P0 |
+| U1 | Developer | run `npx tokensdrift` with no config | I get a drift report on any repo instantly | P0 |
 | U2 | Developer | add `--share` to get a hosted URL | I can paste the report in Slack/a PR | P0 |
 | U3 | Developer | add a drift-score badge to my README | the team sees the score continuously | P1 |
 | U4 | DS engineer | install a GitHub App with a PR check | PRs that add new hardcoded values fail | P0 (paid) |
@@ -85,19 +85,19 @@ Runs one-off audits for clients. Uses free scans and shared reports as client de
 
 ### 5.1 CLI (free, open distribution)
 
-- **F1.** Zero-dependency Node.js CLI, runnable via `npx tokendrift` on Node ≥ 18. No install, no login for local scans.
+- **F1.** Zero-dependency Node.js CLI, runnable via `npx tokensdrift` on Node ≥ 18. No install, no login for local scans.
 - **F2.** Detects: hardcoded color values (hex, rgb/rgba, hsl, named), off-scale spacing values (vs. detected or configured scale), token adoption rate (tokenized vs. raw values per category).
-- **F3.** Auto-detects token sources where possible (CSS custom properties, Tailwind config, common token JSON formats); overridable in `tokendrift.config.js`.
+- **F3.** Auto-detects token sources where possible (CSS custom properties, Tailwind config, common token JSON formats); overridable in `tokensdrift.config.js`.
 - **F4.** Outputs a self-contained static HTML report (no external assets) plus machine-readable JSON.
 - **F5.** Computes a **Drift Score (0–100)** with a documented, stable formula (weighted: token adoption %, violation density per KLOC, violation concentration). Formula changes are versioned.
-- **F6.** `--share` uploads the report and returns a public URL (`usetokendrift.com/r/{id}`). Sharing is opt-in; local scans never transmit code. Uploads contain the report artifact only (aggregates + violation locations/snippets), never the full source.
+- **F6.** `--share` uploads the report and returns a public URL (`tokensdrift.com/r/{id}`). Sharing is opt-in; local scans never transmit code. Uploads contain the report artifact only (aggregates + violation locations/snippets), never the full source.
 - **F7.** Exit codes suitable for CI use (`--max-score-drop`, `--fail-on-new`).
 
 ### 5.2 Hosted reports (free)
 
-- **F8.** Public report page: score headline, category breakdown, top-10 offending files, "fix these 10 files to eliminate X% of drift" summary, TokenDrift branding, and a "Scan your codebase" CTA.
+- **F8.** Public report page: score headline, category breakdown, top-10 offending files, "fix these 10 files to eliminate X% of drift" summary, TokensDrift branding, and a "Scan your codebase" CTA.
 - **F9.** Report URLs are unguessable (long random IDs), deletable by creator via a tokenized link, and auto-expire after 90 days unless claimed by an account.
-- **F10.** SVG badge endpoint (`usetokendrift.com/badge/{repoId}.svg`) rendering the latest score for README embedding.
+- **F10.** SVG badge endpoint (`tokensdrift.com/badge/{repoId}.svg`) rendering the latest score for README embedding.
 - **F11.** Optional email capture on report pages ("email me when this score changes") — feeds the paid-launch list.
 
 ### 5.3 GitHub App + dashboard (paid)
@@ -111,7 +111,7 @@ Runs one-off audits for clients. Uses free scans and shared reports as client de
 
 ### 5.4 Configuration
 
-- **F18.** Single `tokendrift.config.js` (or `.json`): token sources, spacing scale, include/ignore globs, severity overrides, allowed exceptions (with required justification comments). Config is the source of truth for both CLI and CI.
+- **F18.** Single `tokensdrift.config.js` (or `.json`): token sources, spacing scale, include/ignore globs, severity overrides, allowed exceptions (with required justification comments). Config is the source of truth for both CLI and CI.
 
 ---
 
@@ -130,7 +130,7 @@ Runs one-off audits for clients. Uses free scans and shared reports as client de
 1. **PR comments** (F14) expose the product to every teammate of a paying user. Comment footer includes product name + link.
 2. **README badges** (F10) are persistent backlinks and social proof; badge click lands on the repo's public score page.
 3. **Shared reports** (F8) must function as an *argument* for action, not a data dump — the "top 10 files = X% of drift" framing is a requirement, not a nicety.
-4. **Public teardowns:** the report renderer must support a "published by TokenDrift" mode for editorial teardowns of open-source repos (content marketing powered by the product itself).
+4. **Public teardowns:** the report renderer must support a "published by TokensDrift" mode for editorial teardowns of open-source repos (content marketing powered by the product itself).
 
 ---
 
@@ -156,7 +156,7 @@ Guardrail: if shares-per-scan < 0.15 after launch, stop feature work and iterate
 
 | Phase | Weeks | Scope | Exit criteria |
 |---|---|---|---|
-| 1. Share MVP | 1–2 | F1–F9 (CLI + hosted reports) | `npx tokendrift → shared URL` works end-to-end |
+| 1. Share MVP | 1–2 | F1–F9 (CLI + hosted reports) | `npx tokensdrift → shared URL` works end-to-end |
 | 2. Badge + capture | 3–4 | F10–F11 | 20 badges in the wild; email list started |
 | 3. Launch (free) | 4 | Show HN, r/webdev, dev.to + 3 open-source teardowns | 500 cumulative scans |
 | 4. Paid product | 5–8 | F12–F17 | First 5 trials converted from scan list |
