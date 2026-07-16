@@ -4,10 +4,12 @@ import { slugFromRemoteUrl } from 'tokensdrift/repoIdentity';
 import { SESSION_COOKIE, verifySession } from '@/lib/session';
 import { getGithubInstallStore, type Installation } from '@/lib/githubInstallStore';
 import { getBadgeStore } from '@/lib/badgeStore';
+import { getScoreHistoryStore, type ScoreHistoryEntry } from '@/lib/scoreHistoryStore';
 import { getBillingStore, type PlanId } from '@/lib/billingStore';
 import { getEntitlement, type Entitlement } from '@/lib/entitlement';
 import { BillingPortalButton } from './billing-portal-button';
 import { CheckoutButtons } from './checkout-buttons';
+import { ScoreSparkline } from './score-sparkline';
 
 const ALL_PLANS: PlanId[] = ['pro', 'team'];
 const PLAN_LABELS: Record<PlanId, string> = { pro: 'Pro', team: 'Team' };
@@ -20,15 +22,21 @@ interface RepoRow {
   fullName: string;
   score: number | null;
   reportId: string | null;
+  history: ScoreHistoryEntry[];
 }
 
 async function loadRepoRows(repos: string[]): Promise<RepoRow[]> {
-  const badgeStore = await getBadgeStore();
+  const [badgeStore, scoreHistoryStore] = await Promise.all([getBadgeStore(), getScoreHistoryStore()]);
   return Promise.all(
     repos.map(async (fullName) => {
       const slug = slugFromRemoteUrl(`https://github.com/${fullName}`);
-      const badge = await badgeStore.get(slug);
-      return { fullName, score: badge?.score ?? null, reportId: badge?.reportId ?? null };
+      const [badge, history] = await Promise.all([badgeStore.get(slug), scoreHistoryStore.list(slug)]);
+      return {
+        fullName,
+        score: badge?.score ?? null,
+        reportId: badge?.reportId ?? null,
+        history,
+      };
     }),
   );
 }
@@ -133,6 +141,7 @@ async function InstallationCard({ install }: { install: Installation }) {
             <tr style={{ textAlign: 'left', color: 'var(--ink-soft)' }}>
               <th style={{ fontWeight: 600, padding: '4px 0' }}>Repo</th>
               <th style={{ fontWeight: 600, padding: '4px 0' }}>Latest score</th>
+              <th style={{ fontWeight: 600, padding: '4px 0' }}>Trend</th>
               <th style={{ fontWeight: 600, padding: '4px 0' }}>Report</th>
             </tr>
           </thead>
@@ -141,6 +150,9 @@ async function InstallationCard({ install }: { install: Installation }) {
               <tr key={row.fullName} style={{ borderTop: '1px solid var(--rule)' }}>
                 <td style={{ padding: '8px 0' }}>{row.fullName}</td>
                 <td style={{ padding: '8px 0' }}>{row.score ?? '—'}</td>
+                <td style={{ padding: '8px 0' }}>
+                  <ScoreSparkline history={row.history} />
+                </td>
                 <td style={{ padding: '8px 0' }}>
                   {row.reportId ? (
                     <a href={`/r/${row.reportId}`} style={{ color: 'var(--token)' }}>

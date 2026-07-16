@@ -16,10 +16,8 @@ const PRICE_IDS: Record<PlanId, string | undefined> = {
 // Paddle has no Stripe-Checkout-Session-style "create it server-side and
 // redirect to a hosted URL" flow — checkout is driven by Paddle.js on the
 // client (overlay or inline). This route only creates the Transaction and
-// hands back its id; the frontend opens it with
-// `Paddle.Checkout.open({ transactionId })`. See docs/launch-posts.md's
-// sibling context in ROADMAP.md — the dashboard that will call this route
-// doesn't exist yet (Phase 4 item 3), so nothing consumes this response yet.
+// hands back its id; the dashboard's CheckoutButtons opens it with
+// `Paddle.Checkout.open({ transactionId })`.
 export async function POST(req: NextRequest) {
   const body = await req.json().catch(() => null);
   const installationId = Number(body?.installationId);

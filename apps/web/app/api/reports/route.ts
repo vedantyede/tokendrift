@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getStore, REPORT_TTL_SECONDS } from '@/lib/store';
 import { getBadgeStore } from '@/lib/badgeStore';
+import { getScoreHistoryStore } from '@/lib/scoreHistoryStore';
 import { getStatsStore } from '@/lib/statsStore';
 import { generateId, generateDeletionToken, hashToken } from '@/lib/id';
 import { validateSharePayload, MAX_PAYLOAD_BYTES } from '@/lib/validate';
@@ -51,6 +52,14 @@ export async function POST(req: NextRequest) {
       score: payload.aggregate.driftScore.score,
       updatedAt: now,
     });
+
+    const scoreHistoryStore = await getScoreHistoryStore();
+    await scoreHistoryStore.append(payload.meta.repoSlug, {
+      reportId: id,
+      score: payload.aggregate.driftScore.score,
+      createdAt: now,
+    });
+
     badgeUrl = `${req.nextUrl.origin}/badge/${payload.meta.repoSlug}.svg`;
   }
 
