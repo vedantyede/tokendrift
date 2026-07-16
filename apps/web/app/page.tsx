@@ -1,5 +1,11 @@
 import Link from 'next/link';
 import styles from './page.module.css';
+import { getStatsStore } from '@/lib/statsStore';
+
+// Stats aren't part of the static build output — they change as reports come
+// in, so the homepage revalidates periodically instead of freezing the count
+// at the last deploy.
+export const revalidate = 300;
 
 const findings = [
   { color: '#F5F5F5', loc: 'Card.tsx:4', before: "backgroundColor: '#F5F5F5'", after: 'var(--color-surface)' },
@@ -26,7 +32,10 @@ const jsonLd = {
   },
 };
 
-export default function Home() {
+export default async function Home() {
+  const statsStore = await getStatsStore();
+  const { reportsCreated } = await statsStore.getStats();
+
   return (
     <>
       <script
@@ -76,6 +85,12 @@ export default function Home() {
             </Link>
           </div>
           <div className={styles.trustLine}>Free &middot; No signup &middot; Runs locally &middot; Nothing leaves your machine</div>
+          {reportsCreated > 0 && (
+            <div className={styles.statLine}>
+              <strong>{reportsCreated.toLocaleString()}</strong> repo{reportsCreated === 1 ? '' : 's'} scored and
+              shared so far
+            </div>
+          )}
         </section>
 
         <section className={styles.section}>
