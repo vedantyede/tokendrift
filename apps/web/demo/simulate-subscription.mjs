@@ -11,7 +11,7 @@ import { fileURLToPath } from 'node:url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const webRoot = path.resolve(__dirname, '..');
-const baseUrl = 'http://localhost:3000';
+const baseUrl = process.env.DEMO_BASE_URL ?? 'http://localhost:3000';
 
 async function loadEnvLocal() {
   const raw = await readFile(path.join(webRoot, '.env.local'), 'utf8');

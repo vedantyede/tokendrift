@@ -1,6 +1,16 @@
 // Seeds local-only demo data before the Playwright recording runs.
 // Must be run against a dev server started with Redis/Blob env vars
 // stripped (see demo/run-demo.mjs) so nothing here touches production data.
+//
+// DEMO_FIXTURE_REPO must be its own standalone git repo with origin set to
+// https://github.com/demo-org/demo-repo(.git) — the dashboard looks up a
+// repo's badge/score history by hashing that exact URL (slugFromRemoteUrl),
+// while the CLI derives its own slug by walking up from the scanned path to
+// the nearest .git/config's origin remote. Point this at a bare checkout of
+// this monorepo (or any path under it) and the CLI will instead pick up
+// *this* repo's real origin, so the scan silently succeeds but the
+// dashboard never finds a matching badge — it shows "No scan yet" even
+// though a report was created.
 import { readFile, mkdir, writeFile } from 'node:fs/promises';
 import { createHmac } from 'node:crypto';
 import path from 'node:path';
@@ -12,7 +22,7 @@ const webRoot = path.resolve(__dirname, '..');
 const repoRoot = path.resolve(webRoot, '..', '..');
 const cliDist = path.join(repoRoot, 'packages', 'cli', 'dist', 'index.js');
 const fixtureRepo = process.env.DEMO_FIXTURE_REPO;
-const baseUrl = 'http://localhost:3000';
+const baseUrl = process.env.DEMO_BASE_URL ?? 'http://localhost:3000';
 
 async function loadEnvLocal() {
   const raw = await readFile(path.join(webRoot, '.env.local'), 'utf8');
