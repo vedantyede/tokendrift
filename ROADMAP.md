@@ -93,9 +93,9 @@ Order matters here, not just the list of tasks:
        hand-picked repos.
 4. [x] 2–3 open-source teardowns published using the badge/teardown mode above.
       Three live, real, independently-verified:
-      - [Dub — 82/100, 93% adoption](https://tokensdrift-vedantyedes-projects.vercel.app/r/9GNaJ2M_jc81GDZ_9B9Z5Q)
-      - [Twenty — 77/100, 80% adoption](https://tokensdrift-vedantyedes-projects.vercel.app/r/60K5vksSV58e7yNR4oRh1w)
-      - [Formbricks — 87/100, 96% adoption](https://tokensdrift-vedantyedes-projects.vercel.app/r/JuKMkzk5IYM2dc7R19DsMQ)
+      - [Dub — 82/100, 93% adoption](https://www.tokensdrift.com/r/9GNaJ2M_jc81GDZ_9B9Z5Q)
+      - [Twenty — 77/100, 80% adoption](https://www.tokensdrift.com/r/60K5vksSV58e7yNR4oRh1w)
+      - [Formbricks — 87/100, 96% adoption](https://www.tokensdrift.com/r/JuKMkzk5IYM2dc7R19DsMQ)
 
       Producing these surfaced and fixed two more real scanner bugs (in
       addition to the two from the outreach-drafting work): named colors

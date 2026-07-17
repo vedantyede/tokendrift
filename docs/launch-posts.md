@@ -39,13 +39,13 @@ later nobody can say when "mostly following the system" became
 Three real examples, not staged demos — I ran it against open-source
 repos and checked every number by hand before publishing:
 - Dub (dub.co): 82/100, 93% token adoption
-  https://tokensdrift-vedantyedes-projects.vercel.app/r/9GNaJ2M_jc81GDZ_9B9Z5Q
+  https://www.tokensdrift.com/r/9GNaJ2M_jc81GDZ_9B9Z5Q
 - Formbricks: 87/100, 96% adoption
-  https://tokensdrift-vedantyedes-projects.vercel.app/r/JuKMkzk5IYM2dc7R19DsMQ
+  https://www.tokensdrift.com/r/JuKMkzk5IYM2dc7R19DsMQ
 - Twenty (CRM): 77/100, 80% adoption — one CSS file explains most of
   the gap: it declares its own tokens at the top and then falls back
   to a dozen+ different raw hex values in the rest of the file anyway.
-  https://tokensdrift-vedantyedes-projects.vercel.app/r/60K5vksSV58e7yNR4oRh1w
+  https://www.tokensdrift.com/r/60K5vksSV58e7yNR4oRh1w
 
 Current scope: CSS/SCSS/JS/TS/JSX/TSX, auto-detects tokens from CSS
 custom properties, Tailwind config, or W3C token JSON. No Vue/Svelte
@@ -91,9 +91,9 @@ with tens of thousands of files, and named colors like "red"/"blue"
 getting flagged even in plain data objects with nothing to do with
 styling). Fixed both. Results:
 
-- Dub: 82/100 — https://tokensdrift-vedantyedes-projects.vercel.app/r/9GNaJ2M_jc81GDZ_9B9Z5Q
-- Formbricks: 87/100 — https://tokensdrift-vedantyedes-projects.vercel.app/r/JuKMkzk5IYM2dc7R19DsMQ
-- Twenty: 77/100 — https://tokensdrift-vedantyedes-projects.vercel.app/r/60K5vksSV58e7yNR4oRh1w
+- Dub: 82/100 — https://www.tokensdrift.com/r/9GNaJ2M_jc81GDZ_9B9Z5Q
+- Formbricks: 87/100 — https://www.tokensdrift.com/r/JuKMkzk5IYM2dc7R19DsMQ
+- Twenty: 77/100 — https://www.tokensdrift.com/r/60K5vksSV58e7yNR4oRh1w
 
 CSS/SCSS/JS/TS/JSX/TSX, auto-detects tokens from CSS variables,
 Tailwind config, or token JSON. No Vue/Svelte yet.
@@ -195,9 +195,9 @@ file and a raw HTML email template, neither of which is real drift):
 
 | Repo | Score | Token adoption |
 |---|---|---|
-| [Dub](https://tokensdrift-vedantyedes-projects.vercel.app/r/9GNaJ2M_jc81GDZ_9B9Z5Q) | 82/100 | 93% |
-| [Formbricks](https://tokensdrift-vedantyedes-projects.vercel.app/r/JuKMkzk5IYM2dc7R19DsMQ) | 87/100 | 96% |
-| [Twenty](https://tokensdrift-vedantyedes-projects.vercel.app/r/60K5vksSV58e7yNR4oRh1w) | 77/100 | 80% |
+| [Dub](https://www.tokensdrift.com/r/9GNaJ2M_jc81GDZ_9B9Z5Q) | 82/100 | 93% |
+| [Formbricks](https://www.tokensdrift.com/r/JuKMkzk5IYM2dc7R19DsMQ) | 87/100 | 96% |
+| [Twenty](https://www.tokensdrift.com/r/60K5vksSV58e7yNR4oRh1w) | 77/100 | 80% |
 
 Twenty's report is a good example of what this is actually for: one
 CSS file declares its own custom properties at the top, then falls

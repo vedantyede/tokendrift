@@ -44,8 +44,11 @@ let cloneDir = null;
 const jsonOut = path.join(mkdtempSync(path.join(tmpdir(), 'tokensdrift-scan-')), 'scan.json');
 const htmlOut = path.join(path.dirname(jsonOut), 'report.html');
 
+// No --share-url override by default — the CLI's own DEFAULT_SHARE_URL
+// already points at tokensdrift.com. TOKENSDRIFT_SHARE_URL is only for
+// testing against a different deployment.
 const shareArgs = args.share
-  ? ['--share', '--share-url', process.env.TOKENSDRIFT_SHARE_URL ?? 'https://tokensdrift-vedantyedes-projects.vercel.app']
+  ? ['--share', ...(process.env.TOKENSDRIFT_SHARE_URL ? ['--share-url', process.env.TOKENSDRIFT_SHARE_URL] : [])]
   : [];
 
 let shareUrl = null;
